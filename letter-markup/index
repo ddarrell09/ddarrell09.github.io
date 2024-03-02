@@ -2,41 +2,41 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Darrell Douk-Thongdee">
         <title>Awesome science application correspondance</title>
         <style>
             html {
-font-size: 16px;
-}
-body {
-max-width: 800px;
-margin: 0 auto;
-}
-.sender-column {
-text-align: right;
-}
-h1 {
-font-size: 1.5rem;
-}
-h2 {
-font-size: 1.3rem;
-}
-p, ul, ol, dl, address {
-font-size: 1.1rem;
-}
-p, li, dd, dt, address {
-line-height: 1.5;
-}
-address {
-font-style: normal;
-margin: 1rem 0;
-}
+                font-size:16px;
+            }
+            body {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .sender-column {
+                text-align: right;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            p, ul, ol, dl, address {
+                font-size: 1.1rem;
+            }
+            p, li, dd, dt, address {
+                line-height: 1.5;
+            }
+            address {
+                font-style: normal;
+                margin: 1rem 0;
+            }
 
-</style>
-</head>
-<body>
-    <sender-column><p>Dr. Eleanor Gaye</p>
+         </style>
+    </head>
+    <body>
+        <sender-column><p>Dr. Eleanor Gaye</p>
 <p>Awesome Science faculty</p>
 <p>University of Awesome</p>
 <p>Bobtown, CA 99999,</p>
@@ -99,5 +99,5 @@ margin: 1rem 0;
 <p>Dr Eleanor Gaye</p>
 
 <p>University of Awesome motto: "Be awesome to each other." -- Bill S Preston, Esq</p>
-</body>
+    </body>
 </html>
