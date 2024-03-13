@@ -47,5 +47,227 @@
 
 
 /* ------ START WRITING YOUR CODE BELOW ------ */
+/* Imported Typfaces */
 
+@font-face {
+    font-family:'Ultra' ;
+    src: url('../fonts/serif/ultra-regular.ttf') format('regular');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family: ('Lato');
+src: url('../fonts/sans-serif/lato-regular.ttf') format('regular');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family:('Roboto') ;
+src: url('../fonts/sans-serif/roboto-regular.ttf') format('regular');
+font-weight: normal;
+font-style: normal;
+}
+
+
+
+html{
+font-size: 16px;
+font-family: 'Lato',serif ;
+}
+
+header{
+text-align: center;
+font-family: 'Roboto',sans-serif;
+}
+h1{
+padding: 1.3rem;
+transform: rotate(-5deg);
+text-align: center;
+font-size: 2.8rem;
+margin: 2rem 0;
+}
+
+h2{
+text-align: left;
+}
+
+h3{
+text-align: left;
+}
+
+a{
+text-decoration: none;
+}
+
+nav{
+background-color: none;
+padding: 1.5rem;
+margin: 0;
+border:0.06rem solid;
+font-size: 1.5rem;
+}
+nav a{
+color: #27476E;
+text-decoration: none;
+padding: 1.5rem;
+display: flexbox;
+text-align: left;
+}
+
+
+nav a:focus,
+nav a:hover{
+text-decoration: line-through;
+transform: rotate(5deg);
+-webkit-transform: rotate(5deg);
+}
+
+
+
+
+.highlight{
+font-size: 2.5rem;
+font-family: 'Ultra', serif;
+text-transform: uppercase;
+background-color: darkred;
+color: #EFD;
+padding:.8rem .8rem;
+border-top-left-radius: .5rem ;
+border-bottom-left-radius: 0;
+border-top-right-radius: 0;
+border-bottom-right-radius: .5rem ;
+
+box-shadow: .187rem .187rem .187rem #333;
+
+}
+
+
+body{
+padding:0;
+margin:0 auto;
+font-size: 1rem;
+max-width: 104rem;
+min-width: 64rem;
+}
+
+main{
+margin: 0 auto;
+padding-bottom: .25rem;
+width: 90%;   
+line-height: 1.3rem;
+}
+
+ul{
+list-style-type: none;
+}
+
+img{
+display: block;
+max-width: 20rem;
+width: 100%;
+margin-right: 1.25rem;
+}
+
+
+
+.main-section{
+display: flex;
+}
+
+article{
+width: 75%;
+
+}
+
+.article-image{
+margin: 0 1rem 0 0;
+float: left;
+
+}
+.article-image + p{
+margin-top: 0;
+
+}
+
+
+aside{
+clear: both;
+width: 19%;
+margin-left: 3%;
+padding-left: 3%;
+border-left: .0625rem solid #333;
+}
+aside p{
+font-size: .75rem;
+padding-bottom: 2rem;
+border-bottom: .0625rem solid #333;
+text-align:start
+}
+
+.subsection{
+margin-top: 4rem;
+ margin-bottom: 2rem;
+ padding: .5rem;
+ display: grid;
+ grid-template-columns: 1fr  1fr 1fr;
+}
+
+.subsection figure{
+padding: 0;
+margin: 0rem;
+background-color: #EFD;
+
+}
+
+.subsection figcaption{
+font-size: .75rem;
+padding: .75rem;
+text-align: left;
+}
+
+.subsection img{
+padding-bottom: 1%;
+min-width: 5rem;
+}
+
+.expand{
+font-size: .25rem;
+display: block;
+padding-top: .5rem;
+}
+button{
+margin-top: 1rem;
+padding: 1rem;
+font-family: 'Ultra', sans-serif;
+font-size: 1.5rem;
+text-transform: uppercase;
+background-color: #27476E;
+box-shadow: .187rem .187rem .187rem #333; 
+border: none;
+border-radius: .625rem;
+background-color: #27476E;
+}
+button a {
+color: #EFD;
+}
+
+footer{
+margin: 6rem auto .5rem auto;
+width: 90%;
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-column-gap: 1%;
+}
+
+footer :nth-child(2){
+text-align: right;
+line-height: 1.3rem;
+}
+
+footer a {
+font-family: 'Ubuntu', serif;
+color: #6F7D77;
+}
 
