@@ -1,166 +1,986 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Darrell Douk-Thongdee">
-        <title>CE Truffaut | Web Developer</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css">
-    </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>❤️</title>
 
-    <body id="top">
-    
-        <!-- PAGE HEADER -->
-        <header>
-            <!-- Wrap the top level heading in a header element -->
-            <h1>truffaut&nbsp;&nbsp;<span>//</span>&nbsp;&nbsp;portfolio</h1>
-        </header>
-    
-        <!-- NAVIGATION BAR -->
-        <!-- Wrap the unordered list of links in a nav element -->
-        <nav>
-            <!-- Add the image "patricia-frost-125-edited-medium.jpg" right before the opening <ul> tag of the nav.
-            Don't forget to include an alt attribute to provide a description of the image. -->
-            <img src="images/patricia-frost-125-edited-medium.jpg" alt="Navigation Image">
-            <ul>
-                <li><a href="letter-markup">Letter Markup</a></li>
-                <li><a href="planets-table">Planets Table</a></li>
-                <li><a href="wanted-poster">Wanted Poster</a></li>
-                <li><a href="school-site">School Site</a></li>
-                <li><a href="blog">Blog</a></li>
-            </ul>
-            <!-- Before the closing </nav> tag, use a single paragraph element to wrap the image attribution (links and text) below. -->
-            <p>
-                <a href="https://www.flickr.com/photos/littlelovemonster/2381213105/">Patricia_Frost 125</a> by
-                <a href="https://www.flickr.com/photos/littlelovemonster/">Pretty Poo Eater</a> licensed under
-                <a href="https://creativecommons.org/licenses/by-sa/2.0/legalcode">CC BY SA 2.0</a>
-            </p>
-        </nav>
-    
-        <!-- MAIN CONTENT AREA -->
-        <!-- Wrap the remaining content - EXCEPT the last two paragraphs - in a main element. -->
-        <main>
-            <!-- SECTION -->
-            <!-- Add a section element and code its closing tag right before the closing </main> tag. -->
-            <section>
-                <!-- ARTICLE 1 -->
-                <!-- Create an article. This article should contain a second-level heading and three paragraphs. -->
-                <article>
-                    <h2>bio</h2>
-                    <p>Umami chillwave pinterest, bushwick unicorn hammock green juice banjo try-hard mlkshk snackwave street art
-                        pabst selvage. Kinfolk put a bird on it la croix austin meh trust fund scenester. Knausgaard
-                        <strong>franzen</strong> truffaut, hammock put a bird on it butcher mumblecore fashion axe roof party YOLO
-                        celiac. Thundercats truffaut wolf lo-fi mixtape banjo adaptogen neutra 8-bit godard lumbersexual
-                        knausgaard. Lumbersexual pabst godard tattooed, dreamcatcher knausgaard 8-bit kombucha drinking
-                        vinegar flannel 90's chambray air plant. Edison bulb succulents art party scenester migas. Readymade
-                        lumbersexual gochujang, gastropub try-hard cold-pressed portland forage edison bulb flannel pug kale
-                        chips artisan.</p>
-                    <p>Asymmetrical lyft freegan cred. Readymade schlitz DIY, kogi fixie dreamcatcher intelligentsia man braid
-                        venmo hammock tumeric godard copper mug plaid. Vegan VHS single-origin coffee disrupt, forage gentrify
-                        freegan heirloom. Gochujang kickstarter unicorn lumbersexual. Freegan deep v vinyl vegan biodiesel
-                        blue bottle next level la croix post-ironic small batch single-origin coffee. Farm-to-table actually
-                        copper mug retro. Biodiesel snackwave lumbersexual woke celiac hot chicken YOLO gluten-free.</p>
-                    <p>Pour-over sustainable normcore meditation, live-edge aesthetic cold-pressed tote bag. Migas palo santo
-                        plaid salvia, woke vape vice. Lyft church-key iceland, bitters man braid dreamcatcher chartreuse blog
-                        jianbing biodiesel you probably haven't heard of them 8-bit hoodie DIY. Ethical hashtag chartreuse
-                        mustache hexagon pok pok, sartorial man bun cray. Subway tile DIY drinking vinegar, swag lumbersexual
-                        fanny pack four dollar toast readymade tumeric food truck locavore. Bitters street art selfies,
-                        occupy four loko actually waistcoat. Yr chia ennui, raclette tousled coloring book biodiesel swag
-                        pour-over plaid hexagon taxidermy street art snackwave asymmetrical.</p>
-                </article>
-    
-                <!-- ARTICLE 2 -->
-                <!-- Create an article. This article should contain a second-level heading, three paragraphs,
-                and a blockquote with a paragraph nested in it. -->
-                <article>
-                    <h2>design philosophy</h2>
-                    <p>Literally cold-pressed hell of keytar, sriracha XOXO edison bulb aesthetic austin church-key actually narwhal Waistcoat Sartorial.
-                        Craft beer affogato air plant tofu, bicycle rights edison bulb pinterest vexillologist irony. Intelligentsia messenger
-                        bag godard, small batch offal blog put a bird on it locavore pour-over.</p>
-                    <p>Lyft readymade chia, echo park seitan schlitz health goth. Kale chips cloud bread photo booth church-key air plant.
-                        Four loko etsy actually shabby chic. Brunch drinking vinegar fingerstache plaid +1 selfies thundercats. Kombucha
-                        fingerstache disrupt lo-fi pour-over actually. Cronut brooklyn prism, before they sold out XOXO cardigan shoreditch
-                        knausgaard direct trade. Synth fashion axe slow-carb heirloom air plant.</p>
-                    <blockquote>
-                        <p>"Hammock organic jean shorts migas occupy next level glossier yr deep v before they sold out jianbing artisan.
-                        Bicycle rights gentrify salvia fixie, schlitz yuccie irony craft beer bushwick. Live-edge austin hammock pinterest
-                        actually readymade."</p>
-                    </blockquote>
+  <style>
+    :root{
+      --bg1:#0b0b14;
+      --bg2:#1b0f1a;
+      --glass: rgba(255,255,255,.07);
+      --border: rgba(255,255,255,.14);
+      --pink:#ff4d8d;
+      --text: rgba(255,255,255,.92);
+    }
 
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      padding:0;
+      width:100%;
+      height:100%;
+      overflow-x:hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#fff;
+      background:
+        radial-gradient(1200px 800px at 15% 10%, #2a1230 0%, transparent 60%),
+        radial-gradient(900px 600px at 85% 30%, #1d2a55 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
 
-                    <p>Pok pok iPhone fashion axe taiyaki, echo park vegan trust fund yuccie small batch bespoke fam beard twee. Seitan
-                        actually forage, fanny pack hell of hexagon vaporware. Gluten-free <em>flexitarian cornhole gentrify</em>
-                        skateboard keytar. Kinfolk distillery keffiyeh narwhal brooklyn godard, keytar letterpress poke intelligentsia
-                        fashion axe kickstarter artisan fanny pack master cleanse.</p>
-                </article>
-    
-                <!-- ARTICLE 3 -->
-                <!-- Create an article. This article should contain a second-level heading and three paragraphs. -->
-                <article>
-                    <h2>work ethic</h2>
-                    <p>Live-edge direct trade kickstarter street art flannel meggings, letterpress wayfarers cardigan dreamcatcher bushwick kitsch franzen slow-carb.
-                        Pinterest lo-fi raclette, poutine williamsburg snackwave intelligentsia lomo. Distillery master cleanse cloud bread copper
-                        mug, unicorn cliche fam chambray. Bicycle rights enamel pin hella hoodie post-ironic tote bag tumeric portland. Microdosing
-                        VHS kickstarter art party coloring book health goth. Vape pitchfork activated charcoal dreamcatcher chambray.</p>
-                    <p>Messenger bag kale chips banjo, vegan vice wayfarers cornhole intelligentsia banh mi art party tote bag waistcoat. Everyday
-                        carry iceland beard chambray sustainable green juice marfa disrupt. Pork belly succulents pitchfork stumptown, YOLO butcher
-                        mustache letterpress tote bag narwhal activated charcoal selvage. Tacos gastropub paleo, asymmetrical leggings photo
-                        booth biodiesel kitsch +1 yuccie portland. Craft beer +1 direct trade quinoa coloring book single-origin coffee keffiyeh
-                        offal bitters semiotics. Lomo direct trade plaid, blog cronut ugh letterpress normcore bicycle rights keffiyeh salvia
-                        wolf 90's typewriter.</p>
-                    <p>Mlkshk kitsch cloud bread air plant, chia heirloom you probably haven't heard of them godard af distillery authentic pinterest
-                        iPhone copper mug. Edison bulb sriracha chillwave ramps distillery. Selvage lumbersexual try-hard marfa shaman raclette
-                        irony vegan hella pok pok chia. Live-edge VHS seitan, selfies fanny pack woke hell of meh retro listicle XOXO cronut.
-                        Occupy forage palo santo post-ironic farm-to-table. Godard church-key salvia four dollar toast glossier palo santo cliche.</p>
-                </article>
-            </section>
-    
-            <!-- ASIDE -->
-            <!-- Create an image bar using an aside element. The aside element should contain two figures.-->
-            <aside>
-                <!-- FIGURE 1 -->
-                <!-- Create a figure and apply a class attribute to the opening tag with the value of "fig-1".
-                This figure should contain an image and a figcaption. The figcaption should contain the image attribution
-                (links and text below) immediately after the image. -->
-                <figure class="fig-1">
-                    <!-- Add the image "puddle-1-medium.jpg" to the figure.
-                    Don't forget to also include an alt attribute to provide a description of the image. -->
-                    <img src="images/puddle-1-medium.jpg" alt="Puddle Image">
-                    <!-- Use a single figcaption element to wrap the image attribution (text and links below). -->
-                    <figcaption>
-                        <a href="https://www.flickr.com/photos/eosmaiajohanna/16418452630/">Puddle</a> by
-                        <a href="https://www.flickr.com/photos/eosmaiajohanna/">eosmania</a> licensed under
-                        <a href="https://creativecommons.org/licenses/by/2.0/legalcode">CC BY 2.0</a>
-                    </figcaption>
-                </figure>
-    
-                <!-- FIGURE 2 -->
-                <!-- Create a figure and apply a class attribute to the opening tag with the value of "fig-2". -->
-                <figure class="fig-2">
-                    <!-- Add the image "puddle-2-medium.jpg" to the figure.
-                    Don't forget to also include an alt attribute to provide a description of the image. -->
-                    <img src="images/puddle-2-medium.jpg" alt="Puddle Image">
-                    <!-- Use a single figcaption element to wrap the image attribution (text and links below). -->
-                    <figcaption>
-                        <a href="https://www.flickr.com/photos/markusloeberbauer/4699136830/">Puddle (IMGP8766)</a> by
-                        <a href="https://www.flickr.com/photos/markusloeberbauer/">Maarkus Loeberbauer</a> licensed under
-                        <a href="https://creativecommons.org/licenses/by-sa/2.0/legalcode">CC BY SA 2.0</a>
-                    </figcaption>
-                </figure>
-            </aside>
-        </main>
-    
-        <!-- FOOTER -->
-        <!-- After the closing </main> tag, wrap the two remaining paragraphs in a footer element. -->
-        <footer>
-            <!-- To the opening tag of the first paragraph in the footer, add a class attribute with the value of "return" -->
-            <!-- Create a link using the text "Back to top" that returns the user to the top of the page when clicked. -->
-            <p class="return"><a href="#top">Back to top</a></p>
-            <!-- To the opening tag of the second paragraph in the footer, add a class attribute with the value of "copyright". -->
-            <!-- Using the text "C.E. Truffaut" create an email hyperlink for the email address "ce.truffaut@cwu.edu". -->
-            <p class="copyright"><a href="mailto:ce.truffaut@cwu.edu">&copy; 2020 C.E. Truffaut</a></p>
-        </footer>
-    
-    </body>
-    
-    </html>
+    /* background hearts backdrop (behind everything) */
+    .bg-hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+    }
+    .bg-heart{
+      position:absolute;
+      top:-40px;
+      opacity:.22;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
+      animation: bgFall linear forwards;
+      user-select:none;
+    }
+    @keyframes bgFall{
+      to{ transform: translate(var(--drift), 120vh) rotate(360deg); opacity:.08; }
+    }
+
+    .wrap{
+      position:relative;
+      z-index:2;
+      min-height:100svh;
+      display:flex;
+      justify-content:center;
+      padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+    }
+
+    .card{
+      width:min(680px, 92vw);
+      margin: 0 auto;
+      padding: 18px 14px;
+      border-radius: 22px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 90px rgba(0,0,0,.35);
+      overflow:hidden;         /* ✅ prevents inner sideways scroll */
+      text-align:center;
+    }
+
+    h1{
+      margin:0 0 8px;
+      font-size: clamp(22px, 5.2vw, 40px);
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+
+    p{
+      margin:0;
+      color: var(--text);
+      line-height:1.45;
+      font-size: clamp(14px, 3.7vw, 16px);
+    }
+
+    .accent{ color: var(--pink); font-weight: 900; }
+
+    .panel{
+      margin-top: 14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      overflow:hidden;
+    }
+
+    /* video area */
+    .videoWrap{
+      position:relative;
+      width:100%;
+      aspect-ratio: 16 / 9;
+      background: rgba(0,0,0,.25);
+    }
+    video{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .videoControls{
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      display:flex;
+      gap:8px;
+      z-index:2;
+    }
+
+    .iconBtn{
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      color:#fff;
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight:800;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* password row */
+    .pwArea{
+      padding: 12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .pwRow{
+      display:flex;
+      gap:10px;
+      width:100%;
+    }
+
+    input[type="password"]{
+      flex:1;
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color:#fff;
+      outline:none;
+      font-size:16px; /* ✅ avoids iOS zoom bug */
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 900;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btnPrimary{
+      background: linear-gradient(90deg, #ff3d7f, #ff7ab6);
+      color:#1b0f1a;
+      box-shadow: 0 14px 35px rgba(255,77,141,.22);
+    }
+    .btnGhost{
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      color:#fff;
+    }
+
+    .error{
+      min-height: 18px;
+      font-size: 13px;
+      color: rgba(255,255,255,.75);
+      text-align:left;
+      padding-left:4px;
+    }
+
+    /* Screens */
+    .screen{ display:none; }
+    .screen.active{ display:block; }
+
+    /* Quiz */
+    .quizBox{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      text-align:left;
+    }
+    .qTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+      color: rgba(255,255,255,.88);
+      font-weight:800;
+      font-size:14px;
+    }
+    .qText{
+      font-size: 16px;
+      font-weight: 900;
+      margin: 6px 0 12px;
+      line-height:1.35;
+    }
+    .choices{
+      display:grid;
+      gap:10px;
+    }
+    .choice{
+      width:100%;
+      text-align:left;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color:#fff;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .choice:active{ transform: translateY(1px); }
+    .choice.correct{
+      border-color: rgba(70, 255, 170, .55);
+      background: rgba(70, 255, 170, .12);
+    }
+    .choice.wrong{
+      border-color: rgba(255, 90, 120, .55);
+      background: rgba(255, 90, 120, .12);
+    }
+
+    /* Valentine ask */
+    .media{
+      margin: 14px auto 14px;
+      width:min(520px, 92vw);
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    .media img{
+      width:100%;
+      height:auto;
+      max-height: 55vh;
+      object-fit: contain;
+      display:block;
+      background: rgba(0,0,0,.25);
+    }
+
+    .btns{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    /* Polaroids list (scroll DOWN) */
+    .polaroidList{
+      margin-top: 14px;
+      display:grid;
+      gap:14px;
+      padding-bottom: 10px;
+    }
+
+    .polaroid{
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      perspective: 1200px;
+    }
+
+    .pol-inner{
+      position:relative;
+      width:100%;
+      border-radius: 18px;
+      transform-style: preserve-3d;
+      transition: transform .6s cubic-bezier(.2,.9,.2,1);
+    }
+    .polaroid.flipped .pol-inner{
+      transform: rotateY(180deg);
+    }
+
+    .pol-face{
+      position:relative;
+      backface-visibility:hidden;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 18px 55px rgba(0,0,0,.28);
+    }
+
+    .pol-front{
+      padding: 12px;
+      background: rgba(255,255,255,.09);
+    }
+
+    .pol-photo{
+      width:100%;
+      border-radius: 14px;
+      overflow:hidden;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .pol-photo img{
+      width:100%;
+      height:auto;
+      max-height: 62vh;
+      object-fit: cover;
+      display:block;
+    }
+
+    .pol-caption{
+      margin-top: 10px;
+      font-weight: 900;
+      color: rgba(255,255,255,.92);
+      font-size: 15px;
+      text-align:center;
+      padding: 6px 6px 2px;
+    }
+
+    .pol-back{
+      position:absolute;
+      inset:0;
+      transform: rotateY(180deg);
+      padding: 16px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      background: rgba(0,0,0,.30);
+    }
+    .pol-back p{
+      margin:0;
+      white-space: pre-line;
+      font-size: 16px;
+      font-weight: 900;
+      line-height:1.35;
+      color: rgba(255,255,255,.92);
+    }
+
+    /* heartfelt ending */
+    .message{
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      text-align:left;
+      white-space: pre-line;
+      max-width: 520px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    /* overlay hearts (burst) */
+    .fx-heart{
+      position:fixed;
+      top:-40px;
+      pointer-events:none;
+      z-index:10; /* above everything */
+      opacity:.95;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,.25));
+      animation: fall linear forwards;
+    }
+    @keyframes fall{
+      to{ transform: translate(var(--drift), 110vh) rotate(360deg); opacity:.15; }
+    }
+
+    /* Confetti canvas */
+    #confetti{
+      position: fixed;
+      inset: 0;
+      z-index: 9;
+      pointer-events: none;
+    }
+
+    @media (max-width: 600px){
+      .wrap{ padding: max(14px, env(safe-area-inset-top)) 12px max(14px, env(safe-area-inset-bottom)); }
+      .card{ padding: 16px 12px; }
+      .videoWrap{ aspect-ratio: 16/10; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- backdrop hearts behind everything -->
+  <div class="bg-hearts" id="bgHearts"></div>
+
+  <!-- confetti layer -->
+  <canvas id="confetti"></canvas>
+
+  <div class="wrap">
+    <div class="card">
+
+      <!-- SCREEN 1: VIDEO + PASSWORD -->
+      <section id="gate" class="screen active">
+        <div class="panel">
+          <div class="videoWrap">
+            <video id="introVideo"
+                   src="intro.mp4"
+                   autoplay
+                   muted
+                   loop
+                   playsinline
+                   preload="auto"></video>
+
+            <div class="videoControls">
+              <button class="iconBtn" id="toggleMute" aria-label="Toggle mute">🔊</button>
+            </div>
+          </div>
+
+          <div class="pwArea">
+            <div class="pwRow">
+              <input id="pw" type="password" placeholder="Password" autocomplete="off" />
+              <button class="btn btnPrimary" id="pwBtn">Enter</button>
+            </div>
+            <div class="error" id="pwErr"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: QUIZ -->
+      <section id="quiz" class="screen">
+        <h1>One last thing 😌</h1>
+        <p>Answer all of them.</p>
+
+        <div class="quizBox">
+          <div class="qTop">
+            <div id="qCount">Question 1/9</div>
+            <div id="qScore">0 correct</div>
+          </div>
+
+          <div class="qText" id="qText"></div>
+          <div class="choices" id="choices"></div>
+
+          <div style="height:10px"></div>
+          <button class="btn btnGhost" id="restartQuiz" style="width:100%;">Restart</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: VALENTINE ASK -->
+      <section id="ask" class="screen">
+        <h1>Will you be my Valentine? 💌</h1>
+        <p>Hey <span class="accent">Shella</span>, I made this for you.</p>
+
+        <div class="media">
+          <!-- cat + flowers gif -->
+          <img id="askGif" alt="flowers gif" />
+        </div>
+
+        <div class="btns">
+          <button class="btn btnPrimary" id="yesBtn">Yes ❤️</button>
+          <button class="btn btnGhost" id="noBtn">No 😭</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 4: POLAROIDS (SCROLL DOWN) -->
+      <section id="polaroids" class="screen">
+        <h1>Us 📸</h1>
+        <p>Tap a photo to flip it.</p>
+
+        <div class="polaroidList" id="polList"></div>
+
+        <div class="message" id="heartfelt"></div>
+
+        <div class="btns">
+          <button class="btn btnPrimary" id="moreHearts">More hearts</button>
+          <button class="btn btnGhost" id="backHome">Back</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 5: NO -->
+      <section id="no" class="screen">
+        <h1>Dang… 🥲</h1>
+        <p>I’m gonna go cry real quick.</p>
+
+        <div class="media">
+          <img id="noGif" alt="sad gif" />
+        </div>
+
+        <div class="btns">
+          <button class="btn btnPrimary" id="changeMind">Okay okay… YES ❤️</button>
+          <button class="btn btnGhost" id="backHome2">Back</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Audio (starts only after YES click) -->
+  <audio id="bgMusic" src="love.mp3" preload="auto" loop></audio>
+
+  <script>
+    /* =========================
+       CONFIG
+    ========================= */
+    const PASSWORD = "grape";
+
+    const config = {
+      askGif: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25zdDVxNWFveDhpZHR3NW1hNTU5aDM3N24zdTR3aTJ6Z2FqcndzeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wvYNSqBAMDVx8CEYkt/giphy.gif",
+      noGif: "https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif",
+
+      heartfeltMessage:
+`Shella, I love you so much.
+I’m really thankful for you.
+
+I’ve been trying my hardest to keep up and it’s been hard, but you’ve still been right here with me — especially when I’m at my lowest. I love you for that.
+
+This is a hard time for me with everything going on, but you make it feel lighter just by being you.
+
+I can’t wait to live life with you and be happy. 💖`
+    };
+
+    /* =========================
+       SCREENS
+    ========================= */
+    const screens = {
+      gate: document.getElementById("gate"),
+      quiz: document.getElementById("quiz"),
+      ask: document.getElementById("ask"),
+      polaroids: document.getElementById("polaroids"),
+      no: document.getElementById("no"),
+    };
+
+    function show(name){
+      Object.values(screens).forEach(s => s.classList.remove("active"));
+      screens[name].classList.add("active");
+      // keep page positioned at top when switching screens
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    /* =========================
+       BACKDROP HEARTS (constant)
+    ========================= */
+    const bg = document.getElementById("bgHearts");
+    const heartChars = ["💗","💖","💘","💝","💞","💕","❤️"];
+    function spawnBgHeart(){
+      const h = document.createElement("div");
+      h.className = "bg-heart";
+      h.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+      const left = Math.random()*100;
+      const size = 10 + Math.random()*20;
+      const drift = (Math.random()*160 - 80) + "px";
+      const duration = 7 + Math.random()*9;
+
+      h.style.left = left + "vw";
+      h.style.fontSize = size + "px";
+      h.style.setProperty("--drift", drift);
+      h.style.animationDuration = duration + "s";
+
+      bg.appendChild(h);
+      setTimeout(()=>h.remove(), duration*1000);
+    }
+    setInterval(spawnBgHeart, 260);
+
+    /* =========================
+       TOP VIDEO (autoplay muted)
+    ========================= */
+    const introVideo = document.getElementById("introVideo");
+    const toggleMute = document.getElementById("toggleMute");
+
+    // try to force play (Safari sometimes needs a nudge)
+    window.addEventListener("load", () => {
+      introVideo.muted = true;
+      const p = introVideo.play();
+      if (p && typeof p.catch === "function") p.catch(()=>{});
+    });
+
+    toggleMute.addEventListener("click", async () => {
+      try{
+        // user gesture: allow unmuting
+        introVideo.muted = !introVideo.muted;
+        await introVideo.play();
+        toggleMute.textContent = introVideo.muted ? "🔊" : "🔇";
+      }catch(e){}
+    });
+
+    /* =========================
+       PASSWORD
+    ========================= */
+    const pw = document.getElementById("pw");
+    const pwBtn = document.getElementById("pwBtn");
+    const pwErr = document.getElementById("pwErr");
+
+    function checkPassword(){
+      pwErr.textContent = "";
+      const val = (pw.value || "").trim().toLowerCase();
+      if(val === PASSWORD){
+        startQuiz();      // go quiz
+      }else{
+        pwErr.textContent = "Try again.";
+      }
+    }
+
+    pwBtn.addEventListener("click", checkPassword);
+    pw.addEventListener("keydown", (e) => {
+      if(e.key === "Enter") checkPassword();
+    });
+
+    /* =========================
+       CONFETTI (canvas)
+    ========================= */
+    const confettiCanvas = document.getElementById("confetti");
+    const ctx = confettiCanvas.getContext("2d");
+
+    function resizeConfetti(){
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeConfetti);
+    resizeConfetti();
+
+    let confettiPieces = [];
+    function burstConfetti(){
+      const count = 120;
+      for(let i=0;i<count;i++){
+        confettiPieces.push({
+          x: Math.random()*confettiCanvas.width,
+          y: -10 - Math.random()*60,
+          vx: (Math.random()*2 - 1) * 2.2,
+          vy: 2.5 + Math.random()*3.8,
+          size: 3 + Math.random()*4,
+          rot: Math.random()*Math.PI,
+          vr: (Math.random()*2 - 1) * 0.15,
+          life: 70 + Math.random()*50
+        });
+      }
+      runConfetti();
+    }
+
+    let confettiRunning = false;
+    function runConfetti(){
+      if(confettiRunning) return;
+      confettiRunning = true;
+
+      const step = () => {
+        ctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+        confettiPieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vr;
+          p.life -= 1;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          // no hardcoded colors request? Canvas needs color: keep subtle random via HSL
+          ctx.fillStyle = `hsla(${Math.floor(Math.random()*360)}, 90%, 70%, .85)`;
+          ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+          ctx.restore();
+        });
+
+        confettiPieces = confettiPieces.filter(p => p.life > 0 && p.y < confettiCanvas.height + 40);
+        if(confettiPieces.length > 0){
+          requestAnimationFrame(step);
+        }else{
+          ctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+          confettiRunning = false;
+        }
+      };
+      requestAnimationFrame(step);
+    }
+
+    /* =========================
+       QUIZ (9 Qs, random order)
+    ========================= */
+    const quizDataBase = [
+      {
+        q: "When is our anniversary?",
+        choices: ["June 10", "June 14", "June 30", "June 29"],
+        correct: "June 30"
+      },
+      {
+        q: "What was our first hike?",
+        choices: ["Olympic", "Cascades", "Wallace Falls", "Mount Rainier"],
+        correct: "Mount Rainier"
+      },
+      {
+        q: "What was our first kid together?",
+        choices: ["Tobi", "Lando", "SJ", "Kobe"],
+        correct: "Tobi"
+      },
+      {
+        q: "What’s our favorite snack?",
+        choices: ["Cheetos", "Takis", "Puffcorns", "Chocolate"],
+        correct: "Puffcorns"
+      },
+      {
+        q: "Where was our Airbnb trip?",
+        choices: ["Gold Bar", "Leavenworth", "Ocean Shores", "Portland"],
+        correct: "Gold Bar"
+      },
+      {
+        q: "What’s our favorite show?",
+        choices: ["Superstore", "Community", "Snowfall", "The Office"],
+        correct: "Community"
+      },
+      {
+        q: "What is my love language?",
+        choices: ["Words of affirmation", "Gift giving", "Her presence", "Quality time"],
+        correct: "Her presence"
+      },
+      // If you want these two swapped later, just edit the correct answer.
+      {
+        q: "Where did we spend forever trying to win something?",
+        choices: ["At the arcade", "At the mall", "At the movies", "At the beach"],
+        correct: "At the arcade"
+      },
+      {
+        q: "What place is ‘our’ food spot vibe?",
+        choices: ["Hot pot", "Tacos", "Pizza", "Sushi"],
+        correct: "Hot pot"
+      }
+    ];
+
+    let quizData = [];
+    let qIndex = 0;
+    let correctCount = 0;
+
+    const qCountEl = document.getElementById("qCount");
+    const qScoreEl = document.getElementById("qScore");
+    const qTextEl = document.getElementById("qText");
+    const choicesEl = document.getElementById("choices");
+    const restartQuizBtn = document.getElementById("restartQuiz");
+
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function startQuiz(){
+      show("quiz");
+      quizData = shuffle(quizDataBase);
+      qIndex = 0;
+      correctCount = 0;
+      renderQuestion();
+    }
+
+    function renderQuestion(){
+      const total = quizData.length;
+      const item = quizData[qIndex];
+
+      qCountEl.textContent = `Question ${qIndex+1}/${total}`;
+      qScoreEl.textContent = `${correctCount} correct`;
+      qTextEl.textContent = item.q;
+
+      choicesEl.innerHTML = "";
+      const choices = shuffle(item.choices);
+
+      choices.forEach(text => {
+        const btn = document.createElement("button");
+        btn.className = "choice";
+        btn.textContent = text;
+
+        btn.onclick = () => {
+          // lock answers until next question
+          [...choicesEl.querySelectorAll("button")].forEach(b => b.disabled = true);
+
+          if(text === item.correct){
+            btn.classList.add("correct");
+            correctCount++;
+            qScoreEl.textContent = `${correctCount} correct`;
+            burstConfetti();
+
+            setTimeout(() => {
+              qIndex++;
+              if(qIndex >= total){
+                // quiz complete -> ask page
+                show("ask");
+              }else{
+                renderQuestion();
+              }
+            }, 700);
+          }else{
+            btn.classList.add("wrong");
+            setTimeout(() => {
+              // allow retry same question
+              [...choicesEl.querySelectorAll("button")].forEach(b => b.disabled = false);
+              btn.classList.remove("wrong");
+            }, 650);
+          }
+        };
+
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    restartQuizBtn.onclick = () => startQuiz();
+
+    /* =========================
+       ASK PAGE
+    ========================= */
+    document.getElementById("askGif").src = config.askGif;
+    document.getElementById("noGif").src = config.noGif;
+
+    const music = document.getElementById("bgMusic");
+
+    document.getElementById("yesBtn").onclick = async () => {
+      // start music ONLY after user gesture (required on mobile)
+      try{
+        music.volume = 0.9;
+        await music.play();
+      }catch(e){}
+      show("polaroids");
+      startHeartsFX();
+      burstHeartsFX(45);
+      buildPolaroids();
+    };
+
+    document.getElementById("noBtn").onclick = () => {
+      show("no");
+      stopHeartsFX();
+      try{ music.pause(); }catch(e){}
+    };
+
+    document.getElementById("changeMind").onclick = async () => {
+      try{
+        music.volume = 0.9;
+        await music.play();
+      }catch(e){}
+      show("polaroids");
+      startHeartsFX();
+      burstHeartsFX(45);
+      buildPolaroids();
+    };
+
+    document.getElementById("backHome2").onclick = () => {
+      show("ask");
+      stopHeartsFX();
+    };
+
+    /* =========================
+       POLAROIDS (random order)
+       - Front caption (short)
+       - Back message (tap to flip)
+    ========================= */
+    const polList = document.getElementById("polList");
+    const heartfeltEl = document.getElementById("heartfelt");
+
+    const polaroidsData = [
+      // First two you described as "when we got to know each other"
+      { src:"DSCF0007.jpeg", caption:"First time we saw each other", back:"That’s when everything started. ❤️" },
+      { src:"DSCF0006.jpeg", caption:"After a good time", back:"Still one of my favorite nights with you." },
+
+      // Ocean Shores (brushing teeth mirror)
+      { src:"IMG_9470.jpeg", caption:"Ocean Shores", back:"Simple moments with you hit different." },
+
+      // Meow Wolf
+      { src:"IMG_0411.jpeg", caption:"Meow Wolf date", back:"We’re always having fun together." },
+
+      // “Us enjoying each other’s company” (close selfie)
+      { src:"IMG_6404.jpeg", caption:"Just us", back:"I like you best when it’s just us." },
+
+      // First hike (mountain view selfie)
+      { src:"17503EC1-5ADC-4A76-B94A-68E07BB33A02.jpeg", caption:"First hike together", back:"You made that hike feel easy." },
+
+      // Plushie (arcade)
+      { src:"9325070F-2DEF-4452-9E9E-52F35D24A94A.jpeg", caption:"The plushie mission", back:"We really stayed until we won. 😂" },
+
+      // Hot pot
+      { src:"DEF3A7C1-335A-45B3-8A2F-AB042E139543.jpeg", caption:"Hot pot spot", back:"Our food dates are my favorite." },
+
+      // Same hike (kissy mountain view)
+      { src:"EE48B53A-645D-44BC-9138-BD7BF6E4DD53.jpeg", caption:"Same hike, better view", back:"You’re the best part of every view." },
+
+      // Christmas lights
+      { src:"2350A5A0-4AF3-4A20-9E2D-6D80861C29BE.jpeg", caption:"Christmas lights date", back:"You make everything feel warm." },
+
+      // “Scary hike”
+      { src:"IMG_0233.jpeg", caption:"Scary hike", back:"Lowkey scary… but I was with you so it was fine." },
+
+      // Seattle date pics
+      { src:"BA557A36-967D-4E1B-917A-EBB73CCED3C8.jpeg", caption:"Seattle date", back:"More dates like this, forever." },
+      { src:"021446D9-8B29-4195-9E19-E88224562CCE.jpeg", caption:"Seattle date", back:"I’ll always choose you." },
+      { src:"608FD86F-A67E-4556-810C-8E66749C2EF9.jpeg", caption:"Seattle date", back:"You make me smile without trying." },
+
+      // If you still have these in your repo, they’ll show too:
+      { src:"IMG_0418.jpeg", caption:"Another favorite", back:"A memory I’ll keep forever." },
+      { src:"IMG_0420.jpeg", caption:"Another favorite", back:"You’re my peace." },
+      { src:"IMG_4002.jpeg", caption:"Another favorite", back:"I’m glad it’s you." },
+      { src:"IMG_4288.jpeg", caption:"Another favorite", back:"Us > everything." },
+      { src:"IMG_5482.jpeg", caption:"Another favorite", back:"More moments like this." }
+    ];
+
+    let polBuilt = false;
+
+    function buildPolaroids(){
+      if(polBuilt) return;
+      polBuilt = true;
+
+      heartfeltEl.textContent = config.heartfeltMessage;
+
+      const shuffled = shuffle(polaroidsData);
+
+      shuffled.forEach(item => {
+        const wrap = document.createElement("div");
+        wrap.className = "polaroid";
+
+        wrap.innerHTML = `
+          <div class="pol-inner">
+            <div class="pol-face pol-front">
+              <div class="pol-photo">
+                <img src="${item.src}" alt="">
+              </div>
+              <div class="pol-caption">${item.caption}</div>
+            </div>
+
+            <div class="pol-face pol-back">
+              <p>${item.back}</p>
+            </div>
+          </div>
+        `;
+
+        // tap to flip
+        wrap.addEventListener("click", () => {
+          wrap.classList.toggle("flipped");
+        });
+
+        polList.appendChild(wrap);
+      });
+    }
+
+    document.getElementById("backHome").onclick = () => {
+      show("ask");
+      stopHeartsFX();
+      try{ music.pause(); }catch(e){}
+    };
+
+    document.getElementById("moreHearts").onclick = () => burstHeartsFX(45);
+
+    /* =========================
+       HEARTS FX (over everything)
+    ========================= */
+    let fxTimer = null;
+
+    function spawnHeartFX(){
+      const heart = document.createElement("div");
+      heart.className = "fx-heart";
+      heart.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+
+      const left = Math.random()*100;
+      const size = 12 + Math.random()*26;
+      const drift = (Math.random()*140 - 70) + "px";
+      const duration = 4 + Math.random()*4;
+
+      heart.style.left = left + "vw";
+      heart.style.fontSize = size + "px";
+      heart.style.setProperty("--drift", drift);
+      heart.style.animationDuration = duration + "s";
+
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(), duration*1000);
+    }
+
+    function burstHeartsFX(count=30){
+      for(let i=0;i<count;i++) setTimeout(spawnHeartFX, i*55);
+    }
+
+    function startHeartsFX(){
+      if(fxTimer) return;
+      fxTimer = setInterval(spawnHeartFX, 180);
+    }
+
+    function stopHeartsFX(){
+      if(!fxTimer) return;
+      clearInterval(fxTimer);
+      fxTimer = null;
+    }
+  </script>
+</body>
+</html>
