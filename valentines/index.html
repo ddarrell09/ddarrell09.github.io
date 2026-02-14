@@ -9,13 +9,12 @@
     :root{
       --bg1:#120a1f;
       --bg2:#0b1026;
-      --stroke: rgba(255,255,255,.16);
-      --glass: rgba(255,255,255,.10);
-      --glass2: rgba(255,255,255,.06);
-      --text:#f6f2ff;
-      --muted: rgba(255,255,255,.72);
+      --glass: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.18);
       --pink:#ff4d8d;
       --pink2:#ff7aa9;
+      --text:#f6f2ff;
+      --muted: rgba(255,255,255,.72);
       --shadow: 0 18px 60px rgba(0,0,0,.45);
       --radius: 22px;
     }
@@ -33,121 +32,80 @@
       overflow-x:hidden;
     }
 
-    /* ===== ALWAYS-ON BACKGROUND LAYERS ===== */
-    #bgPolaroids{
-      position: fixed;
-      inset: 0;
-      pointer-events:none;
-      z-index: 0;
-      overflow:hidden;
-      filter: blur(1px);
-      opacity: .22;
-    }
-    .bgPol{
-      position:absolute;
-      width: 180px;
-      aspect-ratio: 4 / 5;
-      border-radius: 14px;
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
-      overflow:hidden;
-      transform: rotate(var(--rot)) translate3d(0,0,0);
-      animation: drift var(--dur) ease-in-out infinite alternate;
-    }
-    .bgPol::before{
-      content:"";
-      position:absolute;
-      inset:10px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.18);
-    }
-    .bgPol img{
-      position:absolute;
-      inset:10px;
-      width: calc(100% - 20px);
-      height: calc(100% - 20px);
-      object-fit: cover;
-      border-radius: 10px;
-      opacity: .9;
-    }
-    @keyframes drift{
-      from{ transform: translate3d(0,0,0) rotate(var(--rot)); }
-      to{ transform: translate3d(var(--dx), var(--dy), 0) rotate(calc(var(--rot) + 2deg)); }
-    }
-
-    #heartsLayer{
-      position: fixed;
-      inset: 0;
-      pointer-events:none;
-      z-index: 1;
-      overflow:hidden;
-    }
-    .heart{
-      position:absolute;
-      bottom: -40px;
-      width: 18px;
-      height: 18px;
-      transform: rotate(45deg);
-      opacity: .55;
-      animation: floatUp var(--dur) linear forwards;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,.25));
-    }
-    .heart::before,
-    .heart::after{
-      content:"";
-      position:absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%),
-                  linear-gradient(180deg, var(--pink), var(--pink2));
-    }
-    .heart::before{ left:-9px; top:0; }
-    .heart::after{ left:0; top:-9px; }
-    .heart{ background: linear-gradient(180deg, var(--pink), var(--pink2)); }
-
-    @keyframes floatUp{
-      0%   { transform: translate3d(0,0,0) rotate(45deg) scale(var(--s)); opacity: 0; }
-      10%  { opacity: .55; }
-      100% { transform: translate3d(var(--x), calc(-100vh - 120px), 0) rotate(45deg) scale(var(--s)); opacity: 0; }
-    }
-
-    /* confetti */
-    #confetti{
+    /* ===== ALWAYS-ON FALLING BACKGROUND (hearts + mini polaroids) ===== */
+    .bg-fall-layer{
       position:fixed;
       inset:0;
       pointer-events:none;
-      z-index: 50;
+      overflow:hidden;
+      z-index:0;
+    }
+    .bg-item{
+      position:absolute;
+      top:-140px;
+      left:0;
+      will-change: transform, opacity;
+      filter: blur(.2px);
+      opacity:.55;
+      transform: translate3d(0,0,0);
+      animation: fall linear forwards;
+    }
+    @keyframes fall{
+      to { transform: translate3d(var(--dx), 120vh, 0) rotate(var(--rot)); opacity: 0; }
+    }
+    .bg-heart{
+      font-size: 22px;
+      opacity:.55;
+      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+      filter: blur(.1px);
+    }
+    .bg-pol{
+      width: 86px;
+      background: rgba(255,255,255,.92);
+      border-radius: 10px;
+      padding: 7px 7px 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      opacity:.26;                 /* faded */
+      filter: blur(.25px) saturate(.95);
+    }
+    .bg-pol img{
+      width:100%;
+      height: 96px;
+      object-fit: cover;
+      display:block;
+      border-radius: 7px;
+    }
+    .bg-pol .cap{
+      margin-top: 6px;
+      font-size: 10px;
+      color:#111;
+      font-weight: 800;
+      text-align:center;
+      opacity:.85;
     }
 
-    /* ===== PAGE / TRANSITIONS ===== */
+    /* ===== APP LAYOUT ===== */
+    .app{
+      position:relative;
+      z-index:1; /* above background */
+      min-height:100vh;
+    }
+
     .page{
       min-height:100vh;
       display:none;
-      position: relative;
-      z-index: 2; /* above backgrounds */
       padding: 22px 14px;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity .35s ease, transform .35s ease;
     }
-    .page.active{
-      display:block;
-    }
-    .page.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .page.active{ display:block; }
 
     .wrap{
-      max-width: 560px;
+      max-width: 520px;
       margin: 0 auto;
       padding-bottom: 34px;
     }
 
     .card{
-      background: linear-gradient(180deg, var(--glass), var(--glass2));
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border: 1px solid var(--stroke);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -158,7 +116,7 @@
 
     .title{
       text-align:center;
-      font-weight: 850;
+      font-weight: 900;
       font-size: clamp(26px, 6vw, 34px);
       letter-spacing: .2px;
       margin: 6px 0 14px;
@@ -171,18 +129,18 @@
       font-size: 14px;
     }
 
-    /* ===== BUTTONS ===== */
     .btn{
       border:0;
       border-radius: 999px;
       padding: 12px 18px;
-      font-weight: 800;
+      font-weight: 900;
       cursor:pointer;
       transition: transform .12s ease, filter .12s ease;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
     }
     .btn:active{ transform: scale(.98); filter: brightness(.95); }
+
     .btnPink{
       background: linear-gradient(180deg, var(--pink), var(--pink2));
       color: #180010;
@@ -194,53 +152,8 @@
       border: 1px solid rgba(255,255,255,.18);
     }
 
-    /* ===== LOCK (YouTube) ===== */
-    .lockFrame{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.25);
-      overflow:hidden;
-      position:relative;
-      aspect-ratio: 16 / 9;
-      width:100%;
-    }
-
-    .ytShell{
-      position:absolute; inset:0;
-      display:grid;
-      place-items:center;
-      background: rgba(0,0,0,.18);
-    }
-
-    .ytPlaceholder{
-      position:absolute; inset:0;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      padding: 14px;
-      background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.40));
-    }
-
-    .ytPlay{
-      width: 62px; height: 62px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.25);
-      background: rgba(255,255,255,.12);
-      display:grid;
-      place-items:center;
-    }
-    .ytPlay svg{ width: 24px; height: 24px; fill: rgba(255,255,255,.9); margin-left: 2px; }
-
-    .lockRow{
-      display:flex;
-      gap:10px;
-      margin-top: 14px;
-      align-items:center;
-    }
     .input{
-      flex:1;
+      width:100%;
       padding: 14px 14px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.16);
@@ -249,6 +162,7 @@
       color: var(--text);
       font-size: 16px;
     }
+
     .hint{
       margin-top:10px;
       text-align:center;
@@ -257,54 +171,122 @@
       min-height: 18px;
     }
 
-    /* ===== QUIZ FULL SCREEN ===== */
-    #page-quiz{
-      padding: 0;
+    /* ===== Fade transition between pages ===== */
+    .fadeOverlay{
+      position:fixed;
+      inset:0;
+      background: rgba(10,6,18,.92);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .45s ease;
+      z-index: 30;
     }
+    .fadeOverlay.show{ opacity:1; pointer-events:auto; }
+
+    /* ===== Password page - YouTube frame ===== */
+    .lockFrame{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
+      position:relative;
+      width:100%;
+      aspect-ratio: 16 / 9;
+    }
+    .lockFrame iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+      background: rgba(0,0,0,.25);
+    }
+    .ytOverlay{
+      position:absolute; inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:10px;
+      background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.45));
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease;
+    }
+    .ytOverlay.show{ opacity: 1; pointer-events:auto; }
+    .ytSmall{
+      font-size:12px;
+      color:rgba(255,255,255,.72);
+      text-align:center;
+      padding:0 12px;
+    }
+
+    .lockRow{
+      display:flex;
+      gap:10px;
+      margin-top: 14px;
+      align-items:center;
+    }
+    .lockRow .input{ flex:1; }
+
+    /* ===== QUIZ - Full page ===== */
     .quizFull{
-      min-height: 100vh;
+      min-height: calc(100vh - 44px);
+      display:flex;
+      align-items:stretch;
+    }
+    .quizPanel{
+      width:100%;
       display:flex;
       flex-direction:column;
-      justify-content:center;
-      padding: 22px 14px 34px;
       gap: 14px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.18);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .quizTop{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      flex-wrap:wrap;
     }
     .pill{
       font-size: 13px;
-      padding: 9px 12px;
+      padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.20);
-      color: rgba(255,255,255,.85);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.82);
       white-space:nowrap;
     }
     .qText{
-      font-size: 22px;
-      font-weight: 900;
-      line-height: 1.18;
-      margin: 6px 0 6px;
+      font-size: clamp(20px, 4.5vw, 26px);
+      font-weight: 950;
+      margin: 2px 0 2px;
+      text-align:left;
+      line-height:1.15;
     }
     .choices{
       display:flex;
       flex-direction:column;
-      gap: 12px;
+      gap:12px;
       margin-top: 6px;
+      flex:1;
+      justify-content:center;
     }
     .choice{
-      width: 100%;
       text-align:left;
+      width:100%;
       padding: 16px 16px;
-      border-radius: 18px;
+      border-radius: 16px;
       border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.10);
+      background: rgba(255,255,255,.08);
       color: var(--text);
-      font-weight: 850;
+      font-weight: 900;
       cursor:pointer;
       font-size: 16px;
     }
@@ -316,26 +298,16 @@
       border-color: rgba(255,110,110,.55);
       background: rgba(255,110,110,.12);
     }
+    .quizMsg{
+      min-height: 18px;
+      text-align:center;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      margin-top: -2px;
+    }
 
-    /* ===== VAL PAGE (GIPHY) ===== */
+    /* ===== Valentine page (Giphy) ===== */
     .center{ text-align:center; }
-
-    .gifWrap{
-      width: 100%;
-      max-width: 360px;
-      margin: 0 auto 14px;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.15);
-    }
-    .gifWrap iframe{
-      width: 100%;
-      height: 420px;
-      border:0;
-      display:block;
-    }
-
     .rowBtns{
       display:flex;
       gap:10px;
@@ -343,169 +315,214 @@
       flex-wrap:wrap;
       margin-top: 12px;
     }
-    .blurFlash{
-      filter: blur(4px);
-      opacity: .85;
-      transform: scale(.99);
-      transition: filter .25s ease, opacity .25s ease, transform .25s ease;
+    .giphyWrap{
+      width:100%;
+      max-width: 320px;
+      margin: 0 auto 10px;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.15);
+    }
+    .giphyWrap iframe{
+      display:block;
+      width:100%;
+      height: 360px;
+      border:0;
     }
 
-    /* ===== POLAROIDS STACK VERTICAL ===== */
-    .polStack{
+    /* ===== Polaroids stacked vertical scroll ===== */
+    .polaroidPage{ padding-top: 18px; }
+    .stack{
       display:flex;
       flex-direction:column;
-      gap: 0;
-      margin-top: 10px;
+      gap: 18px;
+      margin-top: 14px;
     }
-    .polItem{
+    .pol{
+      position:relative;
       width: 100%;
       max-width: 460px;
       margin: 0 auto;
-      position: relative;
-      transform: rotate(var(--rot));
-      margin-top: -24px; /* overlap for "stack" look */
-    }
-    .polCard{
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(0,0,0,.18);
-      box-shadow: 0 18px 48px rgba(0,0,0,.35);
       background: #f5f5f7;
+      border-radius: 18px;
       padding: 12px;
+      box-shadow: 0 16px 44px rgba(0,0,0,.38);
+      transform: rotate(var(--tilt));
+      border: 1px solid rgba(0,0,0,.12);
+      overflow:hidden;
+    }
+    .pol::after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: 18px;
+      pointer-events:none;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+      opacity:.35;
     }
     .polInner{
       background:#fff;
       border-radius: 12px;
       overflow:hidden;
     }
-    .polImg{
+    .pol img{
       width:100%;
-      display:block;
-      aspect-ratio: 4 / 5;
+      height: auto;
+      aspect-ratio: 4/5;
       object-fit: cover;
+      display:block;
       background:#ddd;
     }
-    .polCaption{
+    .polCap{
       padding: 10px 8px 4px;
       color:#111;
-      font-weight: 900;
+      font-weight: 950;
       text-align:center;
       font-size: 14px;
     }
-    .tapHint{
+    .polNote{
+      color: rgba(15,15,20,.78);
       text-align:center;
+      font-weight: 700;
       font-size: 12px;
-      color: rgba(255,255,255,.65);
-      margin-top: 8px;
+      padding: 0 10px 8px;
+      line-height: 1.35;
+      white-space: pre-line;
     }
-    .noteCard{
-      margin-top: 18px;
+
+    .finalLetter{
+      margin-top: 20px;
     }
-    .noteCard h2{
+    .finalLetter h2{
       margin: 0 0 10px;
       font-size: 22px;
       text-align:center;
+      font-weight: 950;
     }
-    .noteCard p{
+    .finalLetter p{
       color: rgba(255,255,255,.88);
       line-height: 1.6;
-      font-weight: 650;
+      font-weight: 700;
       margin: 0;
       white-space: pre-line;
     }
 
+    /* confetti canvas */
+    #confetti{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index: 40;
+    }
+
     @media (min-width: 720px){
       .page{ padding: 28px 18px; }
-      .gifWrap iframe{ height: 460px; }
+      .giphyWrap iframe{ height: 420px; }
+      .bg-pol{ width: 96px; }
+      .bg-pol img{ height: 106px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- always-on backgrounds -->
-  <div id="bgPolaroids"></div>
-  <div id="heartsLayer"></div>
+  <!-- Always-on falling layer -->
+  <div class="bg-fall-layer" id="bgLayer"></div>
 
+  <div class="fadeOverlay" id="fadeOverlay"></div>
   <canvas id="confetti"></canvas>
 
-  <!-- ===== PAGE 1: LOCK ===== -->
-  <section id="page-lock" class="page active">
-    <div class="wrap">
-      <div class="card">
-        <div class="center" style="margin-bottom:10px;">🔒</div>
+  <div class="app">
+    <!-- ===== PAGE 1: LOCK (YouTube hint video) ===== -->
+    <section id="page-lock" class="page active">
+      <div class="wrap">
+        <div class="card">
+          <div class="center" style="margin-bottom:10px;">🔒</div>
 
-        <div class="lockFrame">
-          <!-- YouTube: load only after tap (better for phones) -->
-          <div id="ytShell" class="ytShell">
-            <div id="ytPlaceholder" class="ytPlaceholder">
-              <div class="ytPlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
+          <div class="lockFrame">
+            <!-- Your YouTube embed (hint only). iPhone: user taps to play -->
+            <iframe
+              id="ytFrame"
+              src="https://www.youtube.com/embed/pZ663EJwWPY?playsinline=1&rel=0&modestbranding=1"
+              title="YouTube video player"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+
+            <div id="ytOverlay" class="ytOverlay show">
               <button id="tapPlay" class="btn btnPink">Tap to play</button>
+              <div class="ytSmall">(Phone blocks autoplay — tap once)</div>
             </div>
           </div>
-        </div>
 
-        <div class="lockRow">
-          <input id="pw" class="input" type="password" placeholder="Password" autocomplete="off" />
-          <button id="enterBtn" class="btn btnPink" style="padding:12px 16px;">Enter</button>
-        </div>
+          <div class="lockRow">
+            <input id="pw" class="input" type="password" placeholder="Password" autocomplete="off" />
+            <button id="enterBtn" class="btn btnPink" style="padding:12px 16px;">Enter</button>
+          </div>
 
-        <!-- NO HINT -->
-        <div id="lockMsg" class="hint"></div>
+          <!-- no hints -->
+          <div id="lockMsg" class="hint"></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== PAGE 2: QUIZ ===== -->
-  <section id="page-quiz" class="page">
-    <div class="quizFull">
-      <div class="quizTop">
-        <div class="pill" id="qCount">Question 1 / 6</div>
-        <div class="pill" id="scorePill">✅ 0</div>
-      </div>
+    <!-- ===== PAGE 2: QUIZ (Full page) ===== -->
+    <section id="page-quiz" class="page">
+      <div class="wrap quizFull">
+        <div class="quizPanel">
+          <div class="quizTop">
+            <div class="pill" id="qCount">Question 1 / 6</div>
+            <div class="pill" id="scorePill">✅ 0</div>
+          </div>
 
-      <div class="qText" id="qText"></div>
-      <div class="choices" id="choices"></div>
-      <div class="hint" id="quizMsg"></div>
-    </div>
-  </section>
-
-  <!-- ===== PAGE 3: VALENTINE ===== -->
-  <section id="page-val" class="page">
-    <div class="wrap">
-      <div class="card center">
-        <div class="title">Will you be my Valentine? 💌</div>
-        <div class="sub">Hey Shella, I made this for you.</div>
-
-        <div class="gifWrap">
-          <iframe
-            src="https://giphy.com/embed/8QbwUh40Hl96yMgvOx"
-            allowfullscreen
-            title="Valentine GIF"
-          ></iframe>
+          <div id="qText" class="qText"></div>
+          <div id="choices" class="choices"></div>
+          <div class="quizMsg" id="quizMsg"></div>
         </div>
-
-        <div class="rowBtns">
-          <button id="yesBtn" class="btn btnPink">Yes 💖</button>
-          <button id="noBtn" class="btn btnGhost">No 😭</button>
-        </div>
-        <div class="hint" id="valMsg"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== PAGE 4: POLAROIDS + LETTER ===== -->
-  <section id="page-pol" class="page">
-    <div class="wrap">
-      <div class="title" style="margin-bottom:8px;">📸 Us</div>
-      <div class="sub">Scroll down 💗</div>
+    <!-- ===== PAGE 3: VALENTINE ===== -->
+    <section id="page-val" class="page">
+      <div class="wrap">
+        <div class="card center">
+          <div class="title">Will you be my Valentine? 💌</div>
+          <div class="sub">Hey Shella, I made this for you.</div>
 
-      <div id="polStack" class="polStack"></div>
+          <div class="giphyWrap">
+            <!-- Your Giphy embed -->
+            <iframe
+              src="https://giphy.com/embed/8QbwUh40Hl96yMgvOx"
+              width="270"
+              height="480"
+              frameBorder="0"
+              class="giphy-embed"
+              allowFullScreen>
+            </iframe>
+          </div>
 
-      <div class="card noteCard">
-        <h2>For you 💞</h2>
-        <p id="finalLetterText">
+          <div class="rowBtns">
+            <button id="yesBtn" class="btn btnPink">Yes 💖</button>
+            <button id="noBtn" class="btn btnGhost">No 😭</button>
+          </div>
+
+          <div class="hint" id="valMsg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PAGE 4: POLAROIDS + LETTER ===== -->
+    <section id="page-pol" class="page polaroidPage">
+      <div class="wrap">
+        <div class="title" style="margin-bottom:8px;">📸 Us</div>
+        <div class="sub">Scroll down 💗</div>
+
+        <div id="stack" class="stack"></div>
+
+        <div class="card finalLetter" style="margin-top:18px;">
+          <h2>For you 💞</h2>
+          <p id="finalLetterText">
 Shella, I love you so much.
 I’m really thankful for you.
 
@@ -514,123 +531,97 @@ I’ve been trying my hardest to keep up and it’s been hard, but you’ve stil
 This is a hard time for me with everything going on, but you make it feel lighter just by being you.
 
 I can’t wait to live life with you and be happy. 💘
-        </p>
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
-  <!-- music -->
+  <!-- music starts after YES -->
   <audio id="bgMusic" src="love.mp3" preload="auto" loop></audio>
 
   <script>
-    // ================== SETTINGS ==================
-    // Password: grape OR Grape accepted
-    const PASSWORDS = new Set(["grape", "Grape"]);
+    /* ===== SETTINGS ===== */
+    const PASSWORD = "grape"; // accept grape or Grape etc (case-insensitive)
 
-    // YouTube embed (hint video)
-    const YT_IFRAME_HTML = `
-      <iframe
-        width="560" height="315"
-        src="https://www.youtube.com/embed/pZ663EJwWPY?si=oE1-oCG5fCIdDEA6"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        style="width:100%;height:100%;border:0;"
-      ></iframe>
-    `;
-
-    // 6 QUESTIONS (random order each time)
-    // Love language question: any choice is treated as correct
+    // 6 Questions, random order
+    // Love language question: ANY answer is accepted.
     const QUESTIONS = [
       {
         q: "What was our first kids name",
         options: ["Tobi", "SJ", "Lando", "Molly"],
         correct: "Tobi",
-        mode: "normal"
+        acceptAny: false
       },
       {
         q: "What is my love language",
-        options: ["Acts of Service", "Quality Time", "Physical Touch", "Words of Affirmation"],
+        options: ["Acts of Service", "Quality Time", "Physicall Touch", "Words of Afformation"],
         correct: null,
-        mode: "any" // any answer accepted
+        acceptAny: true
       },
       {
         q: "What is our favorite snack together",
         options: ["M&Ms", "Puffcorn", "Popcorn", "Gummy Bears"],
         correct: "Puffcorn",
-        mode: "normal"
+        acceptAny: false
       },
       {
         q: "What is our anniversary",
-        options: ["June 30", "June 14", "September 30", "June 29"],
+        options: ["June 30", "june 14", "spetmeber 30", "June 29"],
         correct: "June 30",
-        mode: "normal"
+        acceptAny: false
       },
       {
         q: "Where was our first hike",
-        options: ["Mount Rainier", "Wallace Falls", "Rattlesnake", "Marymere Falls"],
-        correct: "Mount Rainier",
-        mode: "normal"
+        options: ["Mount rainer", "Wallace Falls", "Rattle snake", "Marymere falls"],
+        correct: "Mount rainer",
+        acceptAny: false
       },
       {
         q: "What is our favorite show",
         options: ["Community", "Superstore", "Snowfall", "The Office"],
         correct: "Community",
-        mode: "normal"
+        acceptAny: false
       }
     ];
 
-    // Your real image files (used for BOTH floating background + stacked polaroids)
-    const PHOTO_FILES = [
-      "17503EC1-5ADC-4A76-B94A-68E07BB33A02.jpeg",
-      "9325070F-2DEF-4452-9E9E-52F35D24A94A.jpeg",
-      "DEF3A7C1-335A-45B3-8A2F-AB042E139543.jpeg",
-      "DSCF0006.jpeg",
-      "DSCF0007.jpeg",
-      "IMG_0233.jpeg",
-      "IMG_0411.jpeg",
-      "IMG_0418.jpeg",
-      "IMG_0420.jpeg",
-      "IMG_4002.jpeg",
-      "IMG_4288.jpeg",
-      "IMG_5482.jpeg",
-      "IMG_6404.jpeg",
-      "IMG_9470.jpeg"
+    // Your local photos in this folder (filenames must match exactly)
+    // Captions/notes: keep what you already had vibes-wise (edit text whenever)
+    const POLAROIDS = [
+      { file:"DSCF0007.jpeg", caption:"First time we saw each other", note:"It started simple… and turned into everything." },
+      { file:"DSCF0006.jpeg", caption:"After a good time", note:"Same vibe — just more love." },
+      { file:"IMG_9470.jpeg", caption:"Ocean Shores", note:"You made the whole trip feel like home." },
+      { file:"17503EC1-5ADC-4A76-B94A-68E07BB33A02.jpeg", caption:"Our first hike", note:"You’re my favorite hiking partner." },
+      { file:"9325070F-2DEF-4452-9E9E-52F35D24A94A.jpeg", caption:"The plushie mission", note:"We really fought for that win 😂" },
+      { file:"DEF3A7C1-335A-45B3-8A2F-AB042E139543.jpeg", caption:"Little dates", note:"Even the simple moments feel big with you." },
+      { file:"IMG_0233.jpeg", caption:"Scary hike", note:"Even when it’s sketchy… we got it together." },
+      { file:"IMG_0411.jpeg", caption:"Us", note:"My favorite place is next to you." },
+      { file:"IMG_0418.jpeg", caption:"Random moment", note:"I love our random moments." },
+      { file:"IMG_0420.jpeg", caption:"Another day", note:"Still choosing you." },
+      { file:"IMG_4002.jpeg", caption:"Smiles", note:"Your smile is literally my weakness." },
+      { file:"IMG_4288.jpeg", caption:"Vibes", note:"You make any place feel fun." },
+      { file:"IMG_5482.jpeg", caption:"Date night", note:"More of this, forever." },
+      { file:"IMG_6404.jpeg", caption:"Comfort", note:"You make everything feel lighter." }
     ];
 
-    // Captions you already had
-    const CAPTIONS = {
-      "DSCF0007.jpeg": "First time we saw each other",
-      "DSCF0006.jpeg": "After a good time",
-      "IMG_9470.jpeg": "Ocean Shores",
-      "17503EC1-5ADC-4A76-B94A-68E07BB33A02.jpeg": "Our first hike",
-      "9325070F-2DEF-4452-9E9E-52F35D24A94A.jpeg": "The plushie mission",
-      "DEF3A7C1-335A-45B3-8A2F-AB042E139543.jpeg": "Mid hot pot spot",
-      "IMG_0233.jpeg": "Scary hike",
-      "IMG_0411.jpeg": "Us",
-      "IMG_0418.jpeg": "Us",
-      "IMG_0420.jpeg": "Us",
-      "IMG_4002.jpeg": "Us",
-      "IMG_4288.jpeg": "Us",
-      "IMG_5482.jpeg": "Us",
-      "IMG_6404.jpeg": "Us"
-    };
+    const HEARTS = ["💗","💖","💕","💘","💞","❤️","🩷"];
 
-    // ================== HELPERS ==================
+    /* ===== HELPERS ===== */
     const $ = (id) => document.getElementById(id);
 
     const showPage = (id) => {
-      document.querySelectorAll(".page").forEach(p => {
-        p.classList.remove("active");
-        p.classList.remove("show");
-      });
-      const el = $(id);
-      el.classList.add("active");
-      // allow display then animate in
-      requestAnimationFrame(() => el.classList.add("show"));
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      $(id).classList.add("active");
       window.scrollTo({ top: 0, behavior: "instant" });
+    };
+
+    const fadeTo = async (id) => {
+      const overlay = $("fadeOverlay");
+      overlay.classList.add("show");
+      await new Promise(r => setTimeout(r, 320));
+      showPage(id);
+      await new Promise(r => setTimeout(r, 120));
+      overlay.classList.remove("show");
     };
 
     const shuffle = (arr) => {
@@ -642,38 +633,39 @@ I can’t wait to live life with you and be happy. 💘
       return a;
     };
 
-    // ================== YOUTUBE TAP TO PLAY ==================
-    const ytShell = $("ytShell");
-    const ytPlaceholder = $("ytPlaceholder");
+    /* ===== YouTube tap overlay (simple iPhone-friendly behavior) ===== */
+    const ytOverlay = $("ytOverlay");
     $("tapPlay").addEventListener("click", () => {
-      ytShell.innerHTML = YT_IFRAME_HTML;
+      // Once tapped, hide overlay. User can press play in the iframe.
+      ytOverlay.classList.remove("show");
     });
 
-    // ================== LOCK -> QUIZ ==================
-    $("enterBtn").addEventListener("click", () => {
-      const val = ($("pw").value || "").trim();
-      if (PASSWORDS.has(val)){
+    /* ===== LOCK -> QUIZ ===== */
+    $("enterBtn").addEventListener("click", async () => {
+      const val = ($("pw").value || "").trim().toLowerCase();
+      if (val === PASSWORD.toLowerCase()){
         $("lockMsg").textContent = "";
         startQuiz();
-        showPage("page-quiz");
+        await fadeTo("page-quiz");
       } else {
         $("lockMsg").textContent = "Nope.";
         $("pw").value = "";
         $("pw").focus();
       }
     });
+
     $("pw").addEventListener("keydown", (e) => {
       if (e.key === "Enter") $("enterBtn").click();
     });
 
-    // ================== QUIZ ==================
+    /* ===== QUIZ ===== */
     let quiz = [];
     let qi = 0;
     let score = 0;
     let locked = false;
 
     function startQuiz(){
-      quiz = shuffle(QUESTIONS); // 6 already
+      quiz = shuffle(QUESTIONS); // random order
       qi = 0;
       score = 0;
       locked = false;
@@ -699,44 +691,38 @@ I can’t wait to live life with you and be happy. 💘
       });
     }
 
-    function isCorrect(qObj, opt){
-      if (qObj.mode === "any") return true;
-      return opt === qObj.correct;
-    }
-
-    function handleAnswer(btn, opt){
+    async function handleAnswer(btn, opt){
       if (locked) return;
       locked = true;
 
-      const qObj = quiz[qi];
-      const ok = isCorrect(qObj, opt);
+      const q = quiz[qi];
+      const isCorrect = q.acceptAny ? true : (opt === q.correct);
 
-      if (ok){
+      if (isCorrect){
         btn.classList.add("correct");
         score++;
         $("scorePill").textContent = `✅ ${score}`;
         confettiBurst();
 
-        setTimeout(() => {
-          qi++;
-          if (qi >= quiz.length){
-            showPage("page-val");
-          } else {
-            locked = false;
-            renderQuestion();
-          }
-        }, 650);
+        await new Promise(r => setTimeout(r, 520));
+        qi++;
+
+        if (qi >= quiz.length){
+          await fadeTo("page-val");
+        } else {
+          locked = false;
+          renderQuestion();
+        }
       } else {
         btn.classList.add("wrong");
         $("quizMsg").textContent = "Try again 🙂";
-        setTimeout(() => {
-          btn.classList.remove("wrong");
-          locked = false;
-        }, 600);
+        await new Promise(r => setTimeout(r, 520));
+        btn.classList.remove("wrong");
+        locked = false;
       }
     }
 
-    // ================== VALENTINE -> POLAROIDS ==================
+    /* ===== VALENTINE ===== */
     const music = $("bgMusic");
     const valMsg = $("valMsg");
 
@@ -746,105 +732,43 @@ I can’t wait to live life with you and be happy. 💘
 
     $("yesBtn").addEventListener("click", async () => {
       valMsg.textContent = "";
+      // Blur the Yes button a little after clicking (cute effect)
+      $("yesBtn").style.filter = "blur(1px)";
+      $("yesBtn").style.opacity = ".9";
 
-      // blur yes button briefly + confetti + then transition
-      const yesBtn = $("yesBtn");
-      yesBtn.classList.add("blurFlash");
-      confettiBurst();
-
-      // music only after YES (phone-friendly)
       try { await music.play(); } catch(e) {}
-
-      setTimeout(() => {
-        yesBtn.classList.remove("blurFlash");
-        buildPolaroidStack();
-        showPage("page-pol");
-      }, 520);
+      confettiBurst();
+      buildPolaroids();
+      await fadeTo("page-pol");
     });
 
-    function buildPolaroidStack(){
-      const stack = $("polStack");
+    function buildPolaroids(){
+      const stack = $("stack");
       stack.innerHTML = "";
+      const items = shuffle(POLAROIDS);
 
-      const files = shuffle(PHOTO_FILES);
-
-      files.forEach((file, idx) => {
-        const item = document.createElement("div");
-        item.className = "polItem";
-        const rot = (Math.random()*8 - 4).toFixed(2) + "deg";
-        item.style.setProperty("--rot", rot);
-
-        const cap = CAPTIONS[file] || "💗";
-
-        item.innerHTML = `
-          <div class="polCard">
-            <div class="polInner">
-              <img class="polImg" src="${file}" alt="photo" loading="lazy" />
-            </div>
-            <div class="polCaption">${cap}</div>
+      items.forEach((item) => {
+        const tilt = (Math.random()*6 - 3).toFixed(2) + "deg";
+        const el = document.createElement("div");
+        el.className = "pol";
+        el.style.setProperty("--tilt", tilt);
+        el.innerHTML = `
+          <div class="polInner">
+            <img src="${item.file}" alt="photo" loading="lazy" />
           </div>
+          <div class="polCap">${item.caption}</div>
+          <div class="polNote">${item.note || ""}</div>
         `;
-        stack.appendChild(item);
+        stack.appendChild(el);
       });
     }
 
-    // ================== ALWAYS-ON FLOATING HEARTS ==================
-    const heartsLayer = $("heartsLayer");
-    function spawnHeart(){
-      const h = document.createElement("div");
-      h.className = "heart";
-      const left = Math.random() * 100;
-      const x = (Math.random()*120 - 60).toFixed(0) + "px";
-      const s = (0.7 + Math.random()*1.2).toFixed(2);
-      const dur = (5.5 + Math.random()*4.8).toFixed(2) + "s";
-      h.style.left = left + "vw";
-      h.style.setProperty("--x", x);
-      h.style.setProperty("--s", s);
-      h.style.setProperty("--dur", dur);
-      heartsLayer.appendChild(h);
-      setTimeout(() => h.remove(), 11000);
-    }
-    // steady stream (not too heavy)
-    setInterval(spawnHeart, 420);
-    // seed a few instantly
-    for (let i=0;i<10;i++) setTimeout(spawnHeart, i*120);
-
-    // ================== ALWAYS-ON FLOATING BACKGROUND POLAROIDS ==================
-    const bg = $("bgPolaroids");
-    function buildBgPolaroids(){
-      bg.innerHTML = "";
-      const picks = shuffle(PHOTO_FILES).slice(0, 10);
-      picks.forEach((file, i) => {
-        const d = document.createElement("div");
-        d.className = "bgPol";
-        const top = Math.random()*85;
-        const left = Math.random()*85;
-        const rot = (Math.random()*16 - 8).toFixed(2) + "deg";
-        const dur = (7 + Math.random()*8).toFixed(2) + "s";
-        const dx = (Math.random()*80 - 40).toFixed(0) + "px";
-        const dy = (Math.random()*70 - 35).toFixed(0) + "px";
-
-        d.style.top = top + "vh";
-        d.style.left = left + "vw";
-        d.style.setProperty("--rot", rot);
-        d.style.setProperty("--dur", dur);
-        d.style.setProperty("--dx", dx);
-        d.style.setProperty("--dy", dy);
-
-        const img = document.createElement("img");
-        img.src = file;
-        img.alt = "";
-        img.loading = "lazy";
-        d.appendChild(img);
-        bg.appendChild(d);
-      });
-    }
-    buildBgPolaroids();
-
-    // ================== CONFETTI ==================
+    /* ===== CONFETTI ===== */
     const confettiCanvas = $("confetti");
     const ctx = confettiCanvas.getContext("2d");
     let confettiPieces = [];
+    let animating = false;
+
     function resizeCanvas(){
       confettiCanvas.width = window.innerWidth;
       confettiCanvas.height = window.innerHeight;
@@ -857,7 +781,7 @@ I can’t wait to live life with you and be happy. 💘
       const H = confettiCanvas.height;
       const count = 120;
       const x = W * 0.5;
-      const y = H * 0.22;
+      const y = H * 0.25;
 
       for (let i=0; i<count; i++){
         confettiPieces.push({
@@ -868,13 +792,13 @@ I can’t wait to live life with you and be happy. 💘
           s: 4 + Math.random()*5,
           r: Math.random()*Math.PI,
           vr: (Math.random()*0.2 - 0.1),
-          life: 70 + Math.random()*40
+          life: 70 + Math.random()*40,
+          hue: Math.floor(Math.random()*360)
         });
       }
       if (!animating) animate();
     }
 
-    let animating = false;
     function animate(){
       animating = true;
       ctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
@@ -890,8 +814,7 @@ I can’t wait to live life with you and be happy. 💘
         ctx.translate(p.x, p.y);
         ctx.rotate(p.r);
         ctx.globalAlpha = Math.max(0, Math.min(1, p.life/110));
-        const hue = Math.floor(Math.random()*360);
-        ctx.fillStyle = `hsl(${hue} 90% 70%)`;
+        ctx.fillStyle = `hsl(${p.hue} 90% 70%)`;
         ctx.fillRect(-p.s/2, -p.s/2, p.s, p.s);
         ctx.restore();
       });
@@ -906,8 +829,62 @@ I can’t wait to live life with you and be happy. 💘
       }
     }
 
-    // initial page fade-in
-    requestAnimationFrame(() => document.querySelector(".page.active")?.classList.add("show"));
+    /* ===== ALWAYS-ON FALLING BACKGROUND ===== */
+    const bgLayer = $("bgLayer");
+
+    function spawnHeart(){
+      const el = document.createElement("div");
+      el.className = "bg-item bg-heart";
+      el.textContent = HEARTS[Math.floor(Math.random()*HEARTS.length)];
+
+      const left = Math.random()*100;
+      const dur = 7 + Math.random()*7;            // 7-14s
+      const size = 16 + Math.random()*18;         // 16-34px
+      const dx = (Math.random()*120 - 60).toFixed(0) + "px";
+      const rot = (Math.random()*90 - 45).toFixed(0) + "deg";
+
+      el.style.left = left + "vw";
+      el.style.fontSize = size + "px";
+      el.style.animationDuration = dur + "s";
+      el.style.setProperty("--dx", dx);
+      el.style.setProperty("--rot", rot);
+      el.style.opacity = (0.25 + Math.random()*0.35).toFixed(2);
+
+      bgLayer.appendChild(el);
+      setTimeout(() => el.remove(), dur*1000 + 400);
+    }
+
+    function spawnPolaroid(){
+      const item = POLAROIDS[Math.floor(Math.random()*POLAROIDS.length)];
+      const el = document.createElement("div");
+      el.className = "bg-item bg-pol";
+
+      const left = Math.random()*100;
+      const dur = 10 + Math.random()*10;          // 10-20s
+      const dx = (Math.random()*160 - 80).toFixed(0) + "px";
+      const rot = (Math.random()*80 - 40).toFixed(0) + "deg";
+
+      el.style.left = left + "vw";
+      el.style.animationDuration = dur + "s";
+      el.style.setProperty("--dx", dx);
+      el.style.setProperty("--rot", rot);
+
+      el.innerHTML = `
+        <img src="${item.file}" alt="" />
+        <div class="cap">${item.caption}</div>
+      `;
+
+      bgLayer.appendChild(el);
+      setTimeout(() => el.remove(), dur*1000 + 400);
+    }
+
+    // Start background rain
+    setInterval(spawnHeart, 260);        // constant hearts
+    setInterval(spawnPolaroid, 1400);    // occasional photo polaroids
+
+    // seed a few right away
+    for (let i=0;i<10;i++) setTimeout(spawnHeart, i*120);
+    for (let i=0;i<3;i++) setTimeout(spawnPolaroid, 500 + i*700);
   </script>
 </body>
 </html>
