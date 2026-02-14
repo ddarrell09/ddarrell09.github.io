@@ -9,7 +9,6 @@
       --bg1:#120a1f;
       --bg2:#0b1026;
       --glass: rgba(255,255,255,.08);
-      --glass2: rgba(255,255,255,.12);
       --stroke: rgba(255,255,255,.18);
       --pink:#ff4d8d;
       --pink2:#ff7aa9;
@@ -45,12 +44,17 @@
     }
     @keyframes floatBg { from{ transform: translateY(0);} to{ transform: translateY(-18px);} }
 
+    /* pages + fade transitions */
     .page{
       min-height:100vh;
       display:none;
       padding: 22px 14px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .28s ease, transform .28s ease;
     }
     .page.active{ display:block; }
+    .page.show{ opacity:1; transform: translateY(0); }
 
     .wrap{
       max-width: 520px;
@@ -83,40 +87,6 @@
       font-size: 14px;
     }
 
-    /* --- LOCK SCREEN (video + password) --- */
-    .lockFrame{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.25);
-      overflow:hidden;
-      position:relative;
-      aspect-ratio: 16 / 9;
-      width:100%;
-    }
-    video{
-      width:100%;
-      height:100%;
-      object-fit: contain; /* keeps it inside frame (no out-of-bounds) */
-      background: rgba(0,0,0,.25);
-    }
-
-    .videoOverlay{
-      position:absolute; inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      flex-direction:column;
-      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.45));
-      opacity: 0;
-      pointer-events:none;
-      transition: opacity .18s ease;
-    }
-    .videoOverlay.show{
-      opacity: 1;
-      pointer-events:auto;
-    }
-
     .btn{
       border:0;
       border-radius: 999px;
@@ -140,6 +110,56 @@
       border: 1px solid rgba(255,255,255,.18);
     }
 
+    .hint{
+      margin-top:10px;
+      text-align:center;
+      font-size: 13px;
+      color: rgba(255,255,255,.55);
+      min-height: 18px; /* space even when blank */
+    }
+
+    /* --- LOCK (YouTube frame + password) --- */
+    .lockFrame{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
+      position:relative;
+      aspect-ratio: 16 / 9;
+      width:100%;
+    }
+    .ytShell{
+      position:absolute; inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,.20);
+    }
+    .ytInner{
+      position:absolute; inset:0;
+    }
+    .ytInner iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+    .videoOverlay{
+      position:absolute; inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      flex-direction:column;
+      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+      transition: opacity .18s ease;
+      z-index: 2;
+    }
+    .videoOverlay.hide{
+      opacity: 0;
+      pointer-events:none;
+    }
+
     .lockRow{
       display:flex;
       gap:10px;
@@ -155,14 +175,6 @@
       background: rgba(0,0,0,.22);
       color: var(--text);
       font-size: 16px;
-    }
-
-    .hint{
-      margin-top:10px;
-      text-align:center;
-      font-size: 13px;
-      color: rgba(255,255,255,.55);
-      min-height: 18px; /* space even when blank */
     }
 
     /* --- QUIZ --- */
@@ -204,7 +216,6 @@
       font-weight: 750;
       cursor:pointer;
     }
-    .choice small{ display:block; font-weight:650; opacity:.78; margin-top:2px; }
     .choice.correct{
       border-color: rgba(92,255,170,.55);
       background: rgba(92,255,170,.18);
@@ -214,24 +225,8 @@
       background: rgba(255,110,110,.12);
     }
 
-    /* --- VALENTINE (cat gif) --- */
-    .center{
-      text-align:center;
-    }
-    .gifBox{
-      width: 100%;
-      max-width: 360px;
-      margin: 0 auto 14px;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.15);
-    }
-    .gifBox img{
-      width:100%;
-      height:auto;
-      display:block;
-    }
+    /* --- VALENTINE --- */
+    .center{ text-align:center; }
     .rowBtns{
       display:flex;
       gap:10px;
@@ -239,97 +234,61 @@
       flex-wrap:wrap;
       margin-top: 12px;
     }
-
-    /* --- POLAROIDS --- */
-    .polaroidPage{
-      padding-top: 18px;
-    }
-    .polaroidGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      width: 100%;
+    .blurOut{
+      filter: blur(8px);
+      opacity: .55;
+      transform: scale(.98);
+      transition: filter .25s ease, opacity .25s ease, transform .25s ease;
+      pointer-events:none;
     }
 
-    .polWrap{
-      perspective: 1200px;
-    }
-    .polCard{
+    /* --- POLAROIDS: vertical stacked collage --- */
+    .polaroidPage{ padding-top: 18px; }
+    .stack{
       position:relative;
-      width:100%;
-      border-radius: 18px;
-      transform-style: preserve-3d;
-      transition: transform .55s cubic-bezier(.2,.8,.2,1);
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+      padding-bottom: 14px;
     }
-    .polCard.flipped{ transform: rotateY(180deg); }
-
-    .polSide{
-      backface-visibility:hidden;
-      -webkit-backface-visibility:hidden;
+    .pol{
+      width: 100%;
       border-radius: 18px;
-      overflow:hidden;
-      box-shadow: 0 16px 40px rgba(0,0,0,.35);
-      border: 1px solid rgba(0,0,0,.18);
-    }
-
-    .polFront{
       background:#f5f5f7;
       padding: 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      border: 1px solid rgba(0,0,0,.18);
+      transform: rotate(var(--rot, 0deg));
     }
-    /* classic “polaroid white border” */
-    .polFrontInner{
+    .polInner{
       background:#fff;
       border-radius: 12px;
       overflow:hidden;
     }
-    .polImg{
+    .pol img{
       width:100%;
       display:block;
       aspect-ratio: 4 / 5;
       object-fit: cover;
       background:#ddd;
     }
-    .polCaption{
-      padding: 10px 8px 4px;
+    .polCap{
+      padding: 10px 8px 2px;
       color:#111;
-      font-weight: 850;
+      font-weight: 900;
       text-align:center;
       font-size: 14px;
     }
-
-    .polBack{
-      position:absolute;
-      inset:0;
-      transform: rotateY(180deg);
-      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
-      border: 1px solid rgba(255,255,255,.18);
-      padding: 16px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap: 10px;
-      color: var(--text);
-    }
-    .noteTitle{
-      font-weight: 900;
-      font-size: 18px;
-      text-align:center;
-    }
-    .noteText{
-      color: rgba(255,255,255,.86);
-      line-height: 1.45;
+    .polNote{
+      color: rgba(0,0,0,.65);
       font-weight: 650;
       text-align:center;
-    }
-    .tapHint{
-      text-align:center;
       font-size: 12px;
-      color: rgba(255,255,255,.65);
-      margin-top: -6px;
+      padding-bottom: 2px;
     }
 
     .finalLetter{
-      margin-top: 20px;
+      margin-top: 18px;
     }
     .finalLetter h2{
       margin: 0 0 10px;
@@ -352,13 +311,13 @@
       z-index: 50;
     }
 
-    /* better phone spacing */
     @media (min-width: 720px){
       .page{ padding: 28px 18px; }
-      .polaroidGrid{ grid-template-columns: repeat(2, 1fr); }
+      .pol{ max-width: 520px; margin: 0 auto; }
     }
   </style>
 </head>
+
 <body>
   <div class="hearts"></div>
   <canvas id="confetti"></canvas>
@@ -370,15 +329,12 @@
         <div class="center" style="margin-bottom:10px;">🔒</div>
 
         <div class="lockFrame">
-          <!-- IMPORTANT for iPhone: muted + playsinline for autoplay attempt -->
-          <video id="introVideo" playsinline muted preload="auto">
-            <source src="intro.mp4" type="video/mp4" />
-          </video>
+          <div id="ytInner" class="ytInner"></div>
 
           <div id="videoOverlay" class="videoOverlay">
             <button id="tapPlay" class="btn btnPink">Tap to play</button>
             <div style="font-size:12px;color:rgba(255,255,255,.72);text-align:center;padding:0 12px;">
-              (iPhone blocks autoplay with sound — tap once and it’ll play)
+              (Phones block autoplay — tap once and it’ll start.)
             </div>
           </div>
         </div>
@@ -388,7 +344,7 @@
           <button id="enterBtn" class="btn btnPink" style="padding:12px 16px;">Enter</button>
         </div>
 
-        <!-- NO HINT (blank on purpose) -->
+        <!-- NO HINTS (blank) -->
         <div id="lockMsg" class="hint"></div>
       </div>
     </div>
@@ -399,7 +355,7 @@
     <div class="wrap">
       <div class="card">
         <div class="quizTop">
-          <div class="pill" id="qCount">Question 1 / 9</div>
+          <div class="pill" id="qCount">Question 1 / 6</div>
           <div class="pill" id="scorePill">✅ 0</div>
         </div>
         <div id="qText" class="qText"></div>
@@ -409,16 +365,24 @@
     </div>
   </section>
 
-  <!-- ===== PAGE 3: VALENTINE (cat gif) ===== -->
+  <!-- ===== PAGE 3: VALENTINE ===== -->
   <section id="page-val" class="page">
     <div class="wrap">
-      <div class="card center">
+      <div id="valCard" class="card center">
         <div class="title">Will you be my Valentine? 💌</div>
         <div class="sub">Hey Shella, I made this for you.</div>
 
-        <!-- Put your cat+flowers gif in repo and name it cat.gif (or change src below) -->
-        <div class="gifBox">
-          <img src="corgi.gif" alt="gif" />
+        <!-- GIPHY embed (your exact iframe) -->
+        <div style="display:flex;justify-content:center;margin: 6px 0 10px;">
+          <iframe
+            src="https://giphy.com/embed/8QbwUh40Hl96yMgvOx"
+            width="270"
+            height="480"
+            style="border-radius:18px; border:1px solid rgba(255,255,255,.16); background: rgba(0,0,0,.12);"
+            frameBorder="0"
+            class="giphy-embed"
+            allowFullScreen>
+          </iframe>
         </div>
 
         <div class="rowBtns">
@@ -434,11 +398,11 @@
   <section id="page-pol" class="page polaroidPage">
     <div class="wrap">
       <div class="title" style="margin-bottom:8px;">📸 Us</div>
-      <div class="sub">Tap a photo to flip it 💗</div>
+      <div class="sub">Scroll down 💗</div>
 
-      <div id="polaroidGrid" class="polaroidGrid"></div>
+      <div id="stack" class="stack"></div>
 
-      <div class="card finalLetter" style="margin-top:18px;">
+      <div class="card finalLetter">
         <h2>For you 💞</h2>
         <p id="finalLetterText">
 Shella, I love you so much.
@@ -454,95 +418,90 @@ I can’t wait to live life with you and be happy. 💘
     </div>
   </section>
 
-  <!-- audio (starts after quiz + YES) -->
+  <!-- music (starts after YES) -->
   <audio id="bgMusic" src="love.mp3" preload="auto" loop></audio>
 
   <script>
-    // ============ SETTINGS ============
-    const PASSWORD = "grape"; // you said grape? (case sensitive)
+    // ===== SETTINGS =====
+    // Accept grape OR Grape (case-insensitive)
+    const PASSWORD = "grape";
 
-    // 9 questions (ORDER RANDOMIZED)
-    // If you want different wording, edit here.
+    // YouTube video hint (loaded only after tap)
+    const YT_EMBED_SRC = "https://www.youtube.com/embed/pZ663EJwWPY?si=oE1-oCG5fCIdDEA6";
+
+    // 6 questions (random order)
+    // Love language question: ANY choice counts as correct
     const QUESTIONS = [
       {
-        q: "When is our anniversary?",
-        options: ["June 10", "June 14", "June 30", "June 29"],
-        correct: "June 30"
-      },
-      {
-        q: "What was our first hike?",
-        options: ["Olympic", "Cascades", "Wallace Falls", "Mount Rainier"],
-        correct: "Mount Rainier"
-      },
-      {
-        q: "What was our first kid together?",
-        options: ["Tobi", "Lando", "SJ", "Koda"],
+        q: "What was our first kids name",
+        options: ["Tobi", "SJ", "Lando", "Molly"],
         correct: "Tobi"
       },
       {
-        q: "What’s our favorite snack?",
-        options: ["Cheetos", "Takis", "Puffcorns", "Chocolate"],
-        correct: "Puffcorns"
+        q: "What is my love language",
+        options: ["Acts of Service", "Quality Time", "Physical Touch", "Words of Affirmation"],
+        correct: "__ANY__"
       },
       {
-        q: "Where was our AirBnB trip?",
-        options: ["Leavenworth", "Gold Bar", "Ocean Shores", "Bellevue"],
-        correct: "Gold Bar"
+        q: "What is our favorite snack together",
+        options: ["M&Ms", "Puffcorn", "Popcorn", "Gummy Bears"],
+        correct: "Puffcorn"
       },
       {
-        q: "What’s our favorite show?",
-        options: ["Superstore", "Community", "Snowfall", "The Office"],
+        q: "What is our anniversary",
+        options: ["June 30", "June 14", "September 30", "June 29"],
+        correct: "June 30"
+      },
+      {
+        q: "Where was our first hike",
+        options: ["Mount Rainier", "Wallace Falls", "Rattlesnake", "Marymere Falls"],
+        correct: "Mount Rainier"
+      },
+      {
+        q: "What is our favorite show",
+        options: ["Community", "Superstore", "Snowfall", "The Office"],
         correct: "Community"
-      },
-      {
-        q: "What is my love language?",
-        options: ["Gifts", "Words", "Her presence", "Quality time"],
-        correct: "Her presence"
-      },
-      // 2 extra solid ones (you can swap later)
-      {
-        q: "Where did we spend forever trying to get a plushie?",
-        options: ["Movie theater", "Arcade", "Mall", "Target"],
-        correct: "Arcade"
-      },
-      {
-        q: "What was our Christmas lights date?",
-        options: ["Zoo lights", "Christmas lights", "Fireworks", "Movie"],
-        correct: "Christmas lights"
       }
     ];
 
-    // Polaroids (RANDOM ORDER) — filenames MUST match your repo exactly.
-    // If any photo doesn’t show, it’s almost always a filename/case mismatch.
+    // Your actual files in /valentines (with captions/notes)
     const POLAROIDS = [
-      // first set you sent
-      { file:"DSCF0007.jpeg", caption:"First time we saw each other", noteTitle:"Day 1", note:"It started simple… and turned into everything." },
-      { file:"DSCF0006.jpeg", caption:"After a good time", noteTitle:"Still smiling", note:"Same vibe — just more love." },
-      { file:"IMG_9470.jpeg", caption:"Ocean Shores", noteTitle:"Beach days", note:"You made the whole trip feel like home." },
-      { file:"EA46A468-EE3C-4890-AC72-702A6EC5D301.jpeg", caption:"Meow Wolf date", noteTitle:"Best date", note:"You + me + weird art = perfect." },
-      { file:"D7F95496-E1E9-4075-A1D7-50FCBE79FE26.jpeg", caption:"Just us", noteTitle:"Comfort", note:"My favorite place is next to you." },
+      { file:"DSCF0007.jpeg", caption:"First time we saw each other", note:"It started simple… and turned into everything." },
+      { file:"DSCF0006.jpeg", caption:"After a good time", note:"Same vibe — just more love." },
+      { file:"IMG_9470.jpeg", caption:"Ocean Shores", note:"You made the whole trip feel like home." },
 
-      // second batch
-      { file:"17503EC1-5ADC-4A76-B94A-68E07BB33A02.jpeg", caption:"Our first hike", noteTitle:"Adventure", note:"You’re my favorite hiking partner." },
-      { file:"9325070F-2DEF-4452-9E9E-52F35D24A94A.jpeg", caption:"The plushie mission", noteTitle:"Worth it", note:"We really fought for that win 😂" },
-      { file:"DEF3A7C1-335A-45B3-8A2F-AB042E139543.jpeg", caption:"Mid hot pot spot", noteTitle:"Little dates", note:"Even the simple moments feel big with you." },
-      { file:"EE48B53A-645D-44BC-9138-BD7BF6E4DD53.jpeg", caption:"Same hike (again)", noteTitle:"Views", note:"The view was crazy… but you still stole the scene." },
-      { file:"2350A5A0-4AF3-4A20-9E2D-6D80861C29BE.jpeg", caption:"Christmas lights date", noteTitle:"Warm", note:"You make cold nights feel easy." },
+      { file:"17503EC1-5ADC-4A76-B94A-68E07BB33A02.jpeg", caption:"Our first hike", note:"You’re my favorite hiking partner." },
+      { file:"9325070F-2DEF-4452-9E9E-52F35D24A94A.jpeg", caption:"The plushie mission", note:"We really fought for that win 😂" },
+      { file:"DEF3A7C1-335A-45B3-8A2F-AB042E139543.jpeg", caption:"Mid hot pot spot", note:"Even the simple moments feel big with you." },
 
-      // last batch
-      { file:"IMG_0233.jpeg", caption:"Scary hike", noteTitle:"Brave", note:"Even when it’s sketchy… we got it together." },
-      { file:"BA557A36-967D-4E1B-917A-EBB73CCED3C8.jpeg", caption:"Seattle date", noteTitle:"City day", note:"You make any place feel fun." },
-      { file:"021446D9-8B29-4195-9E19-E88224562CCE.jpeg", caption:"Seattle vibes", noteTitle:"Us", note:"I love our random moments." },
-      { file:"608FD86F-A67E-4556-810C-8E66749C2EF9.jpeg", caption:"Seattle date (again)", noteTitle:"Laughs", note:"Your smile is literally my weakness." }
+      { file:"IMG_0233.jpeg", caption:"Scary hike", note:"Even when it’s sketchy… we got it together." },
+      { file:"IMG_0411.jpeg", caption:"Us", note:"My favorite place is next to you." },
+      { file:"IMG_0418.jpeg", caption:"Little date", note:"I love our random moments." },
+      { file:"IMG_0420.jpeg", caption:"Another day", note:"Your smile is literally my weakness." },
+      { file:"IMG_4002.jpeg", caption:"Good vibes", note:"Same energy, always." },
+      { file:"IMG_4288.jpeg", caption:"Cuties", note:"You + me = perfect." },
+      { file:"IMG_5482.jpeg", caption:"More memories", note:"I’m grateful for every moment." },
+      { file:"IMG_6404.jpeg", caption:"Together", note:"Forever feels right with you." }
     ];
 
-    // ============ HELPERS ============
+    // ===== HELPERS =====
     const $ = (id) => document.getElementById(id);
+
     const showPage = (id) => {
-      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-      $(id).classList.add("active");
+      // hide all
+      document.querySelectorAll(".page").forEach(p => {
+        p.classList.remove("active");
+        p.classList.remove("show");
+      });
+
+      // show target
+      const el = $(id);
+      el.classList.add("active");
+      requestAnimationFrame(() => el.classList.add("show"));
+
       window.scrollTo({ top: 0, behavior: "instant" });
     };
+
     const shuffle = (arr) => {
       const a = arr.slice();
       for (let i=a.length-1; i>0; i--){
@@ -552,41 +511,31 @@ I can’t wait to live life with you and be happy. 💘
       return a;
     };
 
-    // ============ VIDEO (lock screen) ============
-    const introVideo = $("introVideo");
+    // ===== LOCK: tap to load YouTube =====
     const overlay = $("videoOverlay");
     const tapPlay = $("tapPlay");
+    const ytInner = $("ytInner");
 
-    async function tryAutoPlayMuted(){
-      try{
-        introVideo.muted = true;
-        introVideo.playsInline = true;
-        await introVideo.play();
-        // if it plays, hide overlay
-        overlay.classList.remove("show");
-      }catch(e){
-        // iPhone will block; show overlay
-        overlay.classList.add("show");
-      }
+    function loadYouTubeAndPlay(){
+      // Build iframe only after user tap (helps on mobile)
+      ytInner.innerHTML = `
+        <iframe
+          src="${YT_EMBED_SRC}&autoplay=1&mute=0"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      `;
+      overlay.classList.add("hide");
     }
 
-    tapPlay.addEventListener("click", async () => {
-      try{
-        introVideo.muted = false; // turn sound on
-        await introVideo.play();
-        overlay.classList.remove("show");
-      }catch(e){
-        // if still blocked, keep overlay
-        overlay.classList.add("show");
-      }
+    tapPlay.addEventListener("click", () => {
+      loadYouTubeAndPlay();
     });
 
-    // If the video fails to load (bad path), show overlay so she can still try
-    introVideo.addEventListener("error", () => overlay.classList.add("show"));
-
-    // ============ LOCK -> QUIZ ============
+    // ===== LOCK -> QUIZ =====
     $("enterBtn").addEventListener("click", () => {
-      const val = ($("pw").value || "").trim();
+      const val = ($("pw").value || "").trim().toLowerCase();
       if (val === PASSWORD){
         $("lockMsg").textContent = "";
         startQuiz();
@@ -602,14 +551,14 @@ I can’t wait to live life with you and be happy. 💘
       if (e.key === "Enter") $("enterBtn").click();
     });
 
-    // ============ QUIZ LOGIC ============
+    // ===== QUIZ LOGIC =====
     let quiz = [];
     let qi = 0;
     let score = 0;
     let locked = false;
 
     function startQuiz(){
-      quiz = shuffle(QUESTIONS).slice(0, 9); // ensure 9
+      quiz = shuffle(QUESTIONS);
       qi = 0;
       score = 0;
       locked = false;
@@ -629,28 +578,31 @@ I can’t wait to live life with you and be happy. 💘
       opts.forEach(opt => {
         const b = document.createElement("button");
         b.className = "choice";
-        b.innerHTML = `${opt}`;
+        b.textContent = opt;
         b.addEventListener("click", () => handleAnswer(b, opt));
         box.appendChild(b);
       });
+    }
+
+    function isCorrect(qObj, picked){
+      if (qObj.correct === "__ANY__") return true;
+      return picked === qObj.correct;
     }
 
     function handleAnswer(btn, opt){
       if (locked) return;
       locked = true;
 
-      const correct = quiz[qi].correct;
-      const buttons = Array.from(document.querySelectorAll(".choice"));
-
-      if (opt === correct){
+      const qObj = quiz[qi];
+      if (isCorrect(qObj, opt)){
         btn.classList.add("correct");
         score++;
         $("scorePill").textContent = `✅ ${score}`;
         confettiBurst();
+
         setTimeout(() => {
           qi++;
           if (qi >= quiz.length){
-            // done -> valentine page
             showPage("page-val");
           } else {
             locked = false;
@@ -660,7 +612,6 @@ I can’t wait to live life with you and be happy. 💘
       } else {
         btn.classList.add("wrong");
         $("quizMsg").textContent = "Try again 🙂";
-        // allow retry without moving on
         setTimeout(() => {
           btn.classList.remove("wrong");
           locked = false;
@@ -668,9 +619,10 @@ I can’t wait to live life with you and be happy. 💘
       }
     }
 
-    // ============ VALENTINE -> POLAROIDS ============
+    // ===== VALENTINE -> POLAROIDS =====
     const music = $("bgMusic");
     const valMsg = $("valMsg");
+    const valCard = $("valCard");
 
     $("noBtn").addEventListener("click", () => {
       valMsg.textContent = "Wrong button 😭 try again";
@@ -678,60 +630,44 @@ I can’t wait to live life with you and be happy. 💘
 
     $("yesBtn").addEventListener("click", async () => {
       valMsg.textContent = "";
-      // Start music only after YES (user interaction allows play on iPhone)
+
+      // Blur the YES page before transition
+      valCard.classList.add("blurOut");
+
+      // Start music only after YES (phone-friendly)
       try { await music.play(); } catch(e) {}
 
-      buildPolaroids();
-      showPage("page-pol");
+      // build + transition
+      buildStack();
+      setTimeout(() => showPage("page-pol"), 320);
     });
 
-    function buildPolaroids(){
-      const grid = $("polaroidGrid");
-      grid.innerHTML = "";
+    function buildStack(){
+      const stack = $("stack");
+      stack.innerHTML = "";
 
-      const shuffled = shuffle(POLAROIDS);
+      const items = shuffle(POLAROIDS);
 
-      shuffled.forEach(item => {
-        const wrap = document.createElement("div");
-        wrap.className = "polWrap";
-
+      items.forEach((item, idx) => {
         const card = document.createElement("div");
-        card.className = "polCard";
+        card.className = "pol";
 
-        // FRONT
-        const front = document.createElement("div");
-        front.className = "polSide polFront";
-        front.innerHTML = `
-          <div class="polFrontInner">
-            <img class="polImg" src="${item.file}" alt="photo" loading="lazy" />
+        // give each one a slight tilt like a stack
+        const rot = (Math.random() * 6 - 3); // -3deg to +3deg
+        card.style.setProperty("--rot", rot.toFixed(2) + "deg");
+
+        card.innerHTML = `
+          <div class="polInner">
+            <img src="${item.file}" alt="photo" loading="lazy" />
           </div>
-          <div class="polCaption">${item.caption}</div>
-          <div class="tapHint">tap to flip</div>
+          <div class="polCap">${item.caption || ""}</div>
+          <div class="polNote">${item.note || ""}</div>
         `;
-
-        // BACK
-        const back = document.createElement("div");
-        back.className = "polSide polBack";
-        back.innerHTML = `
-          <div class="noteTitle">${item.noteTitle || "💗"}</div>
-          <div class="noteText">${item.note || ""}</div>
-          <div class="tapHint">tap to flip back</div>
-        `;
-
-        card.appendChild(front);
-        card.appendChild(back);
-
-        // flip
-        card.addEventListener("click", () => {
-          card.classList.toggle("flipped");
-        });
-
-        wrap.appendChild(card);
-        grid.appendChild(wrap);
+        stack.appendChild(card);
       });
     }
 
-    // ============ CONFETTI ============
+    // ===== CONFETTI =====
     const confettiCanvas = $("confetti");
     const ctx = confettiCanvas.getContext("2d");
     let confettiPieces = [];
@@ -781,7 +717,6 @@ I can’t wait to live life with you and be happy. 💘
         ctx.translate(p.x, p.y);
         ctx.rotate(p.r);
         ctx.globalAlpha = Math.max(0, Math.min(1, p.life/110));
-        // random-ish bright colors without hardcoding a palette
         const hue = Math.floor(Math.random()*360);
         ctx.fillStyle = `hsl(${hue} 90% 70%)`;
         ctx.fillRect(-p.s/2, -p.s/2, p.s, p.s);
@@ -798,8 +733,8 @@ I can’t wait to live life with you and be happy. 💘
       }
     }
 
-    // start: attempt autoplay muted (works on some browsers; iPhone may still block)
-    tryAutoPlayMuted();
+    // start with page-lock fade-in
+    requestAnimationFrame(() => $("page-lock").classList.add("show"));
   </script>
 </body>
 </html>
